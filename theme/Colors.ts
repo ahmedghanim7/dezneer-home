@@ -28,9 +28,9 @@ const gray = {
 export const colors = {
   primary,
   white,
-  ...black,
-  ...gray,
-  ...secondary,
+  black,
+  gray,
+  secondary,
 };
 
 export const Colors = {

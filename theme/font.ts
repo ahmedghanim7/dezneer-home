@@ -105,7 +105,7 @@ export const typography = {
   },
 };
 
-export type TypographyTypes = keyof typeof typography;
+export type VariantTypes = keyof typeof typography;
 
 export const font = {
   ...type,

@@ -1,29 +1,13 @@
 import { useState } from "react";
-import { router } from "expo-router";
-import { ResizeMode, Video } from "expo-av";
 import * as DocumentPicker from "expo-document-picker";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  View,
-  Text,
-  Alert,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-
-import { icons } from "../../constants";
-import { createVideoPost } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
-import { useGlobalContext } from "../../context/GlobalProvider";
-import { colors, spacing } from "@/theme";
+import { spacing } from "@/theme";
 import CustomText from "@/components/CustomText";
 import Screen from "@/components/Screen";
 import UploadVideo from "@/components/create/UploadVideo";
 import AddThumbnailImage from "@/components/create/AddThumbnailImage";
 
 const Create = () => {
-  const { user } = useGlobalContext();
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
     title: "",

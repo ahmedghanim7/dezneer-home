@@ -1,28 +1,46 @@
-import { router } from "expo-router";
-import { FlatList } from "react-native";
-
-import { EmptyState, VideoCard } from "../../components";
+import { FlatList, RefreshControl } from "react-native";
 import ProfileHeader from "@/components/profile/ProfileHeader";
-import { Screen } from "@/components/common";
-import { posts } from "./home";
+import { EmptyState, Screen } from "@/components/common";
+import VideoCard from "@/components/home/VideoCard";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { getUserPosts } from "@/service/app-write/posts";
+import { setUserPosts } from "@/store/features/posts";
+import { useFetchData } from "@/hooks";
 
 const Profile = () => {
-  // const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
+  const {
+    posts: { userPosts },
+    user: { $id },
+  } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+
+  const fetchPosts = async () => {
+    const remoteUserPosts = await getUserPosts($id);
+    dispatch(setUserPosts(remoteUserPosts));
+  };
+
+  const { isFetching, isRefreshing, refresh } = useFetchData({
+    func: fetchPosts,
+  });
 
   return (
-    <Screen scrollable={false} top="xLarge" bg="#161622">
+    <Screen scrollable={false} top="xxxLarge" bg="#161622">
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={[]}
+        data={userPosts}
         keyExtractor={(item) => item?.$id}
-        renderItem={({ item }) => <VideoCard videoInfo={item} />}
+        renderItem={({ item }) => <VideoCard post={item} />}
         ListEmptyComponent={() => (
           <EmptyState
             title="No Videos Found"
             subtitle="No videos found for this profile"
+            isLoading={isFetching}
           />
         )}
         ListHeaderComponent={<ProfileHeader />}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
+        }
       />
     </Screen>
   );

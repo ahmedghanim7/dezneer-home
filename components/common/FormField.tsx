@@ -12,9 +12,9 @@ import {
 
 import { colors, spacing } from "@/theme";
 import { InputTypes } from "@/@types";
-import CustomText from "./CustomText";
 import { icons } from "@/constants";
 import FormikErrorMessage from "./FormikErrorMessage";
+import Typography from "./Typography";
 
 interface FormFieldProps {
   name?: string;
@@ -50,10 +50,10 @@ const FormField = ({
   const isPasswordField = type === "PASSWORD";
   return (
     <View style={[styles.container, containerStyles]}>
-      <CustomText
+      <Typography
         content={label}
         variant="mediumRegular"
-        color={colors.gray[300]}
+        color={colors.gray.DEFAULT}
       />
 
       <View style={styles.inputContainer}>
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     height: spacing.xLarge * 2,
     backgroundColor: colors.black[100],
     borderRadius: spacing.medium,
-    borderWidth: 2,
-    borderColor: colors.gray[100],
+    borderWidth: 1,
+    borderColor: colors.black[200],
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     borderRadius: spacing.medium,
-    paddingLeft: spacing.tiny,
+    paddingLeft: spacing.smaller,
     fontSize: spacing.normal,
   },
   togglePassword: {

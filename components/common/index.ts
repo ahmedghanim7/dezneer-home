@@ -1,5 +1,5 @@
-import CustomButton from "./CustomButton";
-import CustomText from "./CustomText";
+import Button from "./Button";
+import Typography from "./Typography";
 import FormField from "./FormField";
 import FormikErrorMessage from "./FormikErrorMessage";
 import FormikForm from "./FormikForm";
@@ -10,10 +10,12 @@ import VideoPlayer from "./VideoPlayer";
 import VideoThumbnail from "./VideoThumbnail";
 import Avatar from "./Avatar";
 import IconButton from "./IconButton";
+import EmptyState from "./EmptyState";
+import SearchInput from "./SearchInput";
 
 export {
-  CustomButton,
-  CustomText,
+  Button,
+  Typography,
   FormField,
   FormikErrorMessage,
   FormikForm,
@@ -24,4 +26,6 @@ export {
   VideoThumbnail,
   Avatar,
   IconButton,
+  SearchInput,
+  EmptyState,
 };

@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { VideoPlayer } from "../common";
-import { Posts } from "@/@types";
+import { Post } from "@/@types";
 import { colors } from "@/theme";
 
-interface TrendingVideoItemProps {
-  activeItem: any;
-  item: Posts;
-}
-
-const TrendingVideoItem = ({ activeItem, item }: TrendingVideoItemProps) => {
+const TrendingVideoItem = ({ item }: { item: Post }) => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
     <Animatable.View
-      style={{ marginRight: 5 }}
-      animation={activeItem === item?.$id ? zoomIn : zoomOut}
+      style={{ marginRight: 10 }}
+      // animation={activeItem === item?.$id ? zoomIn : zoomOut}
       duration={500}
     >
       <VideoPlayer
@@ -23,8 +18,8 @@ const TrendingVideoItem = ({ activeItem, item }: TrendingVideoItemProps) => {
         videoStyles={{ width: 148, height: 236 }}
         isVideoPlaying={isVideoPlaying}
         setIsVideoPlaying={setIsVideoPlaying}
-        thumbnailUrl={item.thumbnail}
-        videoUrl={item.video}
+        thumbnailUrl={item.thumbnailUrl}
+        videoUrl={item.videoUrl}
         thumbnailStyles={{
           borderRadius: 14,
           shadowOffset: { height: 5, width: 5 },
@@ -39,7 +34,6 @@ const TrendingVideoItem = ({ activeItem, item }: TrendingVideoItemProps) => {
 export default TrendingVideoItem;
 
 const zoomIn: any = {
-  //  Animatable.CustomAnimation<TextStyle & ViewStyle & ImageStyle> = {
   0: {
     scale: 0.9,
   },
@@ -49,7 +43,6 @@ const zoomIn: any = {
 };
 
 const zoomOut: any = {
-  //  Animatable.CustomAnimation<TextStyle & ViewStyle & ImageStyle> = {
   0: {
     scale: 1,
   },

@@ -4,7 +4,6 @@ import {
   ImageResizeMode,
   ImageStyle,
   StyleProp,
-  StyleSheet,
 } from "react-native";
 import React from "react";
 import { colors, spacing } from "@/theme";
@@ -28,30 +27,21 @@ const Avatar = ({
   borderWidth,
   resizeMode,
 }: AvatarProps) => {
-  const imageStyles: StyleProp<ImageStyle> = [
-    styles.container,
-    { width, height, borderColor, borderRadius, borderWidth, resizeMode },
-  ];
-
-  console.log({ source });
+  const imageStyles: StyleProp<ImageStyle> = {
+    width: width || 46,
+    height: height || 46,
+    borderRadius: borderRadius || spacing.small,
+    borderColor: borderColor || colors.secondary.DEFAULT,
+    borderWidth: borderWidth || 3,
+  };
 
   return (
     <Image
       source={source.url ? { uri: source.url } : source}
       style={imageStyles}
-      resizeMode="cover"
+      resizeMode={resizeMode || "cover"}
     />
   );
 };
 
 export default Avatar;
-
-const styles = StyleSheet.create({
-  container: {
-    width: 46,
-    height: 46,
-    borderRadius: spacing.small,
-    borderWidth: 3,
-    borderColor: colors.secondary.DEFAULT,
-  },
-});

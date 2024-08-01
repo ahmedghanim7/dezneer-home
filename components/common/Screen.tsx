@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 interface ScreenProps {
   children: React.ReactNode;
   withStatusBar?: boolean;
-  top?: SpacingTypes;
+  top?: SpacingTypes | number;
   px?: SpacingTypes;
   bottom?: SpacingTypes;
   bg?: string;
@@ -23,7 +23,7 @@ interface ScreenProps {
 
 const Screen = ({
   children,
-  withStatusBar = false,
+  withStatusBar = true,
   bottom = "none",
   px = "xLarge",
   top = "none",
@@ -38,7 +38,8 @@ const Screen = ({
     width: "100%",
     paddingBottom: spacing[bottom],
     paddingHorizontal: spacing[px],
-    paddingTop: spacing[top],
+    // @ts-ignore
+    paddingTop: spacing[top] ? spacing[top] : top,
     backgroundColor: bg,
   };
   if (scrollable) {

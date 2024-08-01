@@ -1,22 +1,21 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
 import { colors, spacing } from "@/theme";
-import CustomText from "../common/CustomText";
-import { DummyPosts, images } from "@/constants";
-import SearchInput from "../SearchInput";
-import { Posts } from "@/@types";
+import Typography from "../common/Typography";
+import { images } from "@/constants";
 import { useAppSelector } from "@/store";
-import TrendingVideos from "./TrendingVideos";
+import { SearchInput } from "../common";
+import LatestVideos from "./LatestVideos";
 
-const HomeHeader = ({ latestPosts }: { latestPosts?: Posts[] }) => {
+const HomeHeader = () => {
   const { username } = useAppSelector((state) => state.user);
   return (
     <View style={{ paddingVertical: 10, marginBottom: 20 }}>
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <View style={{ alignItems: "flex-start" }}>
-            <CustomText content={"Welcome Back"} variant="smallRegular" />
-            <CustomText content={username || "Username"} variant="xLargeBold" />
+            <Typography content={"Welcome Back"} variant="smallRegular" />
+            <Typography content={username || "Username"} variant="xLargeBold" />
           </View>
           <Image
             source={images.logoSmall}
@@ -25,14 +24,17 @@ const HomeHeader = ({ latestPosts }: { latestPosts?: Posts[] }) => {
           />
         </View>
         <SearchInput />
-        <CustomText
+        <Typography
           content={"Trending Videos"}
           variant="smallRegular"
           color={colors.gray["300"]}
-          textStyles={{ marginTop: spacing.xLarge, marginBottom: spacing.normal}}
+          textStyles={{
+            marginTop: spacing.xLarge,
+            marginBottom: spacing.normal,
+          }}
         />
       </View>
-      <TrendingVideos posts={posts} />
+      <LatestVideos />
     </View>
   );
 };
@@ -49,7 +51,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    marginBottom:spacing.large
+    marginBottom: spacing.large,
+    width: "100%",
   },
   trendingContainer: {
     width: "100%",
@@ -57,27 +60,3 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
 });
-
-const posts: Posts[] = [
-  {
-    creator: { avatar: DummyPosts.DummyAvatar, username: "Ahmed GH" },
-    $id: "1114785",
-    thumbnail: DummyPosts.Thumbnail1,
-    title: "title 1 for some desc...",
-    video: DummyPosts.Video1,
-  },
-  {
-    creator: { avatar: DummyPosts.DummyAvatar, username: "John Mat" },
-    $id: "44758",
-    thumbnail: DummyPosts.Thumbnail2,
-    title: "what did you think title 2 for some desc...",
-    video: DummyPosts.Video2,
-  },
-  {
-    creator: { avatar: DummyPosts.DummyAvatar, username: "Andrian Jil" },
-    $id: "778596",
-    thumbnail: DummyPosts.Thumbnail3,
-    title: "did you think title 3 for some desc...",
-    video: DummyPosts.Video3,
-  },
-];

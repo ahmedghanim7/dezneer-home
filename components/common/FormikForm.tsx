@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import { Formik } from "formik";
 import { spacing } from "@/theme";
-import CustomButton from "./CustomButton";
+import Button from "./Button";
 import { IFormField } from "@/@types";
 import FormField from "./FormField";
 
@@ -54,7 +54,7 @@ const FormikForm = ({
               />
             ))}
 
-            <CustomButton
+            <Button
               title={submitButtonLabel}
               onPress={handleSubmit}
               containerStyles={{

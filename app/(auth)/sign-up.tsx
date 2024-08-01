@@ -9,18 +9,20 @@ import { IFormField, SignUpParams } from "@/@types";
 import { useAppDispatch } from "@/store";
 import { setUser } from "@/store/features/user";
 import { SignupSchema } from "@/utils/validation";
-import { CustomText, FormikForm, Screen } from "@/components/common";
+import { Typography, FormikForm, Screen } from "@/components/common";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
   const SignUpHandler = async (params: SignUpParams) => {
-    console.log("SIGN_UP SUBMITTED");
     setSubmitting(true);
     try {
       const user = await createUser(params);
       const { accountId, $id, email, username, avatar } = user;
+      await AsyncStorage.setItem("accountId", accountId);
       dispatch(
         setUser({
           $id,
@@ -30,12 +32,18 @@ const SignUp = () => {
           username,
         })
       );
+      Toast.show({
+        type: "success",
+        text1: "Account created successfully",
+      });
       router.replace("/home");
     } catch (error: any) {
-      // Toast.show({
-      //   type: "error",
-      //   text1: error?.message,
-      // });
+      console.log({ error });
+
+      Toast.show({
+        type: "error",
+        text1: error?.message,
+      });
     } finally {
       setSubmitting(false);
     }
@@ -50,7 +58,7 @@ const SignUp = () => {
             resizeMode="contain"
             style={{ width: 115, height: 34 }}
           />
-          <CustomText content={`Sign Up`} variant="xLargeBold" />
+          <Typography content={`Sign Up`} variant="xLargeBold" />
         </View>
 
         <FormikForm
@@ -65,15 +73,15 @@ const SignUp = () => {
           validationSchema={SignupSchema}
           submitButtonState={isSubmitting}
         />
-        <CustomText content="Already have an account?" variant="smallRegular">
+        <Typography content="Already have an account?" variant="smallRegular">
           <Link href="/sign-in">
-            <CustomText
+            <Typography
               color={colors.secondary.DEFAULT}
               content="Login"
               variant="smallSemiBold"
             />
           </Link>
-        </CustomText>
+        </Typography>
       </View>
     </Screen>
   );

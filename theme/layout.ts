@@ -1,6 +1,6 @@
-import {Dimensions, Platform} from 'react-native';
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+import { Dimensions, Platform } from "react-native";
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 export const spacing = {
   none: 0,
@@ -26,7 +26,7 @@ export const screen = {
   contentOffset: spacing.content,
 };
 
-export const isIOS = Platform.OS === 'ios';
-export const isAndroid = Platform.OS === 'android';
+export const isIOS = Platform.OS === "ios";
+export const isAndroid = Platform.OS === "android";
 
 export const TAB_BAR_HEIGHT = 80;

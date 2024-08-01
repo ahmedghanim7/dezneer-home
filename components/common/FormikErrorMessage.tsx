@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import CustomText from "./CustomText";
+import Typography from "./Typography";
 import { colors } from "@/theme";
 
 interface FormikErrorMessageProps {
@@ -20,7 +20,7 @@ const FormikErrorMessage = ({
 
   return (
     <View>
-      <CustomText
+      <Typography
         textStyles={{ textAlign: "left" }}
         content={isThereError ? errors[inputName] : ""}
         color={colors.red.red}

@@ -6,8 +6,6 @@ export async function uploadFile(file: any, type: string) {
 
   const { mimeType, ...rest } = file;
   const asset = { type: mimeType, ...rest };
-  console.log({ asset });
-
   try {
     const uploadedFile = await appWriteStorage.createFile(
       appWriteConfig.storageId,
@@ -18,8 +16,6 @@ export async function uploadFile(file: any, type: string) {
     const fileUrl = await getFilePreview(uploadedFile.$id, type);
     return fileUrl;
   } catch (error: any) {
-    console.log("uploadFile", { error });
-
     throw new Error(error);
   }
 }

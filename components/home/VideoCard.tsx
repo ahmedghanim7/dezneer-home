@@ -3,16 +3,16 @@ import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { spacing } from "@/theme";
 import { VideoPlayer } from "../common";
 import VideoCardHeader from "./VideoCardHeader";
-import { Posts } from "@/@types";
+import { Post } from "@/@types";
 
 const VideoCard = ({
-  videoInfo,
+  post,
   containerStyles,
 }: {
-  videoInfo: Posts;
+  post: Post;
   containerStyles?: StyleProp<ViewStyle>;
 }) => {
-  const { creator, thumbnail, title, video } = videoInfo;
+  const { creator, thumbnailUrl, title, videoUrl } = post;
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
@@ -25,8 +25,8 @@ const VideoCard = ({
       <VideoPlayer
         isVideoPlaying={isVideoPlaying}
         setIsVideoPlaying={setIsVideoPlaying}
-        thumbnailUrl={thumbnail}
-        videoUrl={video}
+        thumbnailUrl={thumbnailUrl}
+        videoUrl={videoUrl}
       />
     </View>
   );

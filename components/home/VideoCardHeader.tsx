@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { Avatar, CustomText, IconButton } from "../common";
+import { Avatar, Typography, IconButton } from "../common";
 import { icons } from "@/constants";
 
 interface VideoCardHeaderProps {
@@ -14,13 +14,13 @@ const VideoCardHeader = ({ avatar, creator, title }: VideoCardHeaderProps) => {
     <View style={styles.container}>
       <Avatar source={avatar} />
       <View style={styles.videoInfoContainer}>
-        <CustomText
+        <Typography
           variant="smallBold"
           content={title}
           numberOfLines={1}
           textStyles={{ textAlign: "left" }}
         />
-        <CustomText
+        <Typography
           variant="xSmallRegular"
           content={creator}
           numberOfLines={1}

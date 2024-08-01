@@ -1,9 +1,9 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
-import CustomText from "../common/CustomText";
 import { colors, spacing } from "@/theme";
 import { icons } from "@/constants";
 import { FileMedia } from "@/@types/Posts.type";
+import { Typography } from "../common";
 
 interface AddThumbnailImageProps {
   openPicker: (mediaType: string) => void;
@@ -16,10 +16,10 @@ const AddThumbnailImage = ({
 }: AddThumbnailImageProps) => {
   return (
     <View style={styles.container}>
-      <CustomText
+      <Typography
         content="Thumbnail Image"
         variant="mediumRegular"
-        color={colors.gray[300]}
+        color={colors.gray.DEFAULT}
       />
 
       <TouchableOpacity
@@ -40,7 +40,7 @@ const AddThumbnailImage = ({
               alt="upload"
               style={styles.chooseThumbnailIcon}
             />
-            <CustomText content="Choose a file" variant="smallRegular" />
+            <Typography content="Choose a file" variant="smallRegular" />
           </View>
         )}
       </TouchableOpacity>

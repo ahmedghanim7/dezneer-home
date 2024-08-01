@@ -1,7 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
-import { spacing } from "@/theme";
-import { CustomText } from "../common";
+import { Typography } from "../common";
 
 interface BottomTabIconProps {
   icon?: any;
@@ -19,10 +18,11 @@ const BottomTabIcon = ({ color, focused, name, icon }: BottomTabIconProps) => {
         tintColor={color}
         style={{ width: 24, height: 24 }}
       />
-      <CustomText
+      <Typography
         content={name}
         variant={focused ? "xSmallSemiBold" : "xSmallRegular"}
         color={color}
+        textStyles={{ marginLeft: 3 }}
       />
     </View>
   );

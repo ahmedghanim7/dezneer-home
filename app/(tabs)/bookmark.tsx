@@ -1,10 +1,10 @@
-import CustomText from "@/components/common/CustomText";
+import Typography from "@/components/common/Typography";
 import Screen from "@/components/common/Screen";
 
 const Bookmark = () => {
   return (
     <Screen>
-      <CustomText content={"Bookmark"} variant="largeSemiBold" />
+      <Typography content={"Bookmark"} variant="largeSemiBold" />
     </Screen>
   );
 };

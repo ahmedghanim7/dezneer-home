@@ -1,5 +1,5 @@
 import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
-import CustomText from "./CustomText";
+import Typography from "./Typography";
 import { colors } from "@/theme";
 
 interface InfoBoxProps {
@@ -17,14 +17,14 @@ const InfoBox = ({
 }: InfoBoxProps) => {
   return (
     <View style={containerStyles}>
-      <CustomText
+      <Typography
         content={title}
         textStyles={titleStyles}
         color={colors.white}
         variant="largeBold"
       />
       {subtitle && (
-        <CustomText
+        <Typography
           content={subtitle}
           textStyles={titleStyles}
           color={colors.white}

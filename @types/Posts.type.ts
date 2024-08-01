@@ -1,8 +1,8 @@
-export interface Posts {
+export interface Post {
   $id: string;
   title: string;
-  thumbnail: string;
-  video: string;
+  thumbnailUrl: string;
+  videoUrl: string;
   creator: PostCreator;
 }
 

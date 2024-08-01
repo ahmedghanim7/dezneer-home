@@ -4,8 +4,8 @@ import { spacing } from "@/theme";
 import UploadVideo from "@/components/create/UploadVideo";
 import AddThumbnailImage from "@/components/create/AddThumbnailImage";
 import {
-  CustomButton,
-  CustomText,
+  Button,
+  Typography,
   FormField,
   Screen,
 } from "@/components/common";
@@ -15,6 +15,7 @@ import { useAppSelector } from "@/store";
 import { router } from "expo-router";
 import { createVideoPost } from "@/service/app-write/posts";
 import { extractDataFile, validateFormNotEmpty } from "@/utils/functions";
+import Toast from "react-native-toast-message";
 
 interface Form {
   title?: string;
@@ -37,10 +38,10 @@ const Create = () => {
 
   const openPicker = async (mediaType: string) => {
     const pickedMedia = await DocumentPicker.getDocumentAsync({
-      type:
-        mediaType === "image"
-          ? ["image/png", "image/jpg"]
-          : ["video/mp4", "video/gif"],
+      // type:
+      //   mediaType === "image"
+      //     ? ["image/png", "image/jpg"]
+      //     : ["video/mp4", "video/gif"],
     });
     if (!pickedMedia.canceled) {
       const extractedMedia = extractDataFile(pickedMedia.assets[0]);
@@ -51,7 +52,10 @@ const Create = () => {
       });
     } else {
       setTimeout(() => {
-        Alert.alert("Document picked", JSON.stringify(pickedMedia, null, 2));
+        Toast.show({
+          type: "info",
+          text1: "Document picked",
+        });
       }, 100);
     }
   };
@@ -66,10 +70,16 @@ const Create = () => {
         ...form,
         userId: $id,
       });
-      Alert.alert("Success", "Post uploaded successfully");
+      Toast.show({
+        type: "success",
+        text1: "Success, Post uploaded successfully",
+      });
       router.push("/home");
     } catch (error: any) {
-      Alert.alert("Error", error.message);
+      Toast.show({
+        type: "error",
+        text1: error.message,
+      });
     } finally {
       setForm(initialFormState);
       setUploading(false);
@@ -77,13 +87,13 @@ const Create = () => {
   };
 
   return (
-    <Screen scrollable px="xLarge" top="xxLarge" bottom="xxxLarge">
-      <CustomText
+    <Screen scrollable px="xLarge" top={50} bottom="xxxLarge">
+      <Typography
         content="Upload Video"
         variant="xLargeBold"
         textStyles={{ textAlign: "left", margin: 0 }}
       />
-      <View style={{ marginTop: 32, rowGap: spacing.xLarge }}>
+      <View style={{ marginTop: 32, rowGap: spacing.medium }}>
         <FormField
           label="Video Title"
           value={form.title || ""}
@@ -105,10 +115,10 @@ const Create = () => {
           containerStyles={{ marginTop: spacing.small }}
         />
 
-        <CustomButton
+        <Button
           title="Submit & Publish"
           onPress={submit}
-          containerStyles={{ marginTop: spacing.small }}
+          containerStyles={{ marginTop: spacing.small, marginBottom: 70 }}
           isLoading={uploading}
         />
       </View>

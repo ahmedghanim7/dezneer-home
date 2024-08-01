@@ -1,12 +1,4 @@
-import {
-  Image,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import React from "react";
 import { AVPlaybackStatus, ResizeMode, Video } from "expo-av";
 import { spacing } from "@/theme";
@@ -31,13 +23,12 @@ const VideoPlayer = ({
   containerStyles,
   videoStyles,
 }: VideoPlayerProps) => {
-  console.log({ videoUrl });
-
   const onPlayHandler = () => setIsVideoPlaying(true);
   return (
     <View style={[{ width: "100%", height: 200 }, containerStyles]}>
       {isVideoPlaying ? (
         <Video
+          // @ts-ignore
           source={videoUrl}
           style={[styles.video, videoStyles]}
           resizeMode={ResizeMode.COVER}

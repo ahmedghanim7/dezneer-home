@@ -3,7 +3,7 @@ import React from "react";
 import { colors, spacing } from "@/theme";
 import { ResizeMode, Video } from "expo-av";
 import { icons } from "@/constants";
-import { CustomText } from "../common";
+import { Typography } from "../common";
 import { FileMedia } from "@/@types/Posts.type";
 
 interface UploadVideoProps {
@@ -14,10 +14,10 @@ interface UploadVideoProps {
 const UploadVideo = ({ openPicker, video }: UploadVideoProps) => {
   return (
     <View style={styles.container}>
-      <CustomText
+      <Typography
         content="Upload Video"
         variant="mediumRegular"
-        color={colors.gray[300]}
+        color={colors.gray.DEFAULT}
       />
       <TouchableOpacity
         style={{ width: "100%" }}

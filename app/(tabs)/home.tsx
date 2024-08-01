@@ -1,41 +1,52 @@
-import { useState } from "react";
-import { FlatList, Image, RefreshControl, Text, View } from "react-native";
-
-import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
-import { Posts } from "@/@types";
+import { FlatList, RefreshControl } from "react-native";
 import HomeHeader from "@/components/home/HomeHeader";
-import { Screen } from "@/components/common";
-import { DummyPosts } from "@/constants";
+import { EmptyState, Screen } from "@/components/common";
 import { spacing } from "@/theme";
+import VideoCard from "@/components/home/VideoCard";
+import { getAllPosts, getLatestPosts } from "@/service/app-write/posts";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setAllPosts, setLatestPosts } from "@/store/features/posts";
+import { useFetchData } from "@/hooks";
 
 const Home = () => {
-  // const { data: posts, refetch } = useAppwrite(getAllPosts);
-  // const { data: latestPosts } = useAppwrite(getLatestPosts);
+  const dispatch = useAppDispatch();
+  const { allPosts } = useAppSelector((state) => state.posts);
 
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    // await refetch();
-    setRefreshing(false);
+  const fetchPosts = async () => {
+    const [remoteAllPosts, remoteLatestPosts] = await Promise.all([
+      getAllPosts(),
+      getLatestPosts(),
+    ]);
+    dispatch(setAllPosts(remoteAllPosts));
+    dispatch(setLatestPosts(remoteLatestPosts));
   };
+
+  const { isFetching, isRefreshing, refresh } = useFetchData({
+    func: fetchPosts,
+  });
 
   return (
     <Screen scrollable={false} top="huge" px="none">
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={posts}
+        data={allPosts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <VideoCard videoInfo={item} containerStyles={{marginHorizontal:spacing.xLarge}} />}
+        renderItem={({ item }) => (
+          <VideoCard
+            post={item}
+            containerStyles={{ marginHorizontal: spacing.xLarge }}
+          />
+        )}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={() => (
           <EmptyState
             title="No Videos Found"
             subtitle="No videos created yet"
+            isLoading={isFetching}
           />
         )}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
       />
     </Screen>
@@ -43,27 +54,3 @@ const Home = () => {
 };
 
 export default Home;
-
-export const posts: Posts[] = [
-  {
-    creator: { avatar: DummyPosts.DummyAvatar, username: "Ahmed GH" },
-    $id: "1114785",
-    thumbnail: DummyPosts.Thumbnail1,
-    title: "title 1 for some desc...",
-    video: DummyPosts.Video1,
-  },
-  {
-    creator: { avatar: DummyPosts.DummyAvatar, username: "John Mat" },
-    $id: "44758",
-    thumbnail: DummyPosts.Thumbnail2,
-    title: "what did you think title 2 for some desc...",
-    video: DummyPosts.Video2,
-  },
-  {
-    creator: { avatar: DummyPosts.DummyAvatar, username: "Andrian Jil" },
-    $id: "778596",
-    thumbnail: DummyPosts.Thumbnail3,
-    title: "did you think title 3 for some desc...",
-    video: DummyPosts.Video3,
-  },
-];

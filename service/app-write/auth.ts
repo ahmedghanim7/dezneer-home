@@ -36,7 +36,7 @@ export async function createUser({ email, password, username }: SignUpParams) {
 
     return newUser;
   } catch (error: any) {
-    console.log("ERRORRRRRR-----------", { error });
+    console.log({ error });
     throw new Error(error);
   }
 }

@@ -1,22 +1,23 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { spacing } from "@/theme";
-import { DummyPosts, icons } from "@/constants";
+import { icons } from "@/constants";
 import InfoBox from "../common/InfoBox";
 import { router } from "expo-router";
-import { Avatar, CustomText, IconButton } from "../common";
+import { Avatar, Typography, IconButton } from "../common";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { clearUser } from "@/store/features/user";
 import { signOut } from "@/service/app-write/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileHeader = () => {
   const { username, avatar } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  console.log({ username, avatar });
 
   const logout = async () => {
     await signOut();
     dispatch(clearUser());
+    await AsyncStorage.setItem("accountId", "");
     router.replace("/sign-in");
   };
 
@@ -30,7 +31,7 @@ const ProfileHeader = () => {
       />
       <Avatar source={{ url: avatar }} width={56} height={56} />
       {true && (
-        <CustomText
+        <Typography
           content={username}
           variant="largeBold"
           textStyles={styles.username}

@@ -5,19 +5,28 @@ import {
   Dimensions,
   Platform,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 
 interface LoaderProps {
   isLoading: boolean;
+  containerStyles?: StyleProp<ViewStyle>;
 }
-const Loader = ({ isLoading }: LoaderProps) => {
+const Loader = ({ isLoading, containerStyles }: LoaderProps) => {
   const isIos = Platform.OS === "ios";
   const screenHeight = Dimensions.get("screen").height;
 
   if (!isLoading) return null;
 
   return (
-    <View style={[styles.loaderContainer, { height: screenHeight }]}>
+    <View
+      style={[
+        styles.loaderContainer,
+        { height: screenHeight },
+        containerStyles,
+      ]}
+    >
       <ActivityIndicator
         animating={isLoading}
         color="#fff"

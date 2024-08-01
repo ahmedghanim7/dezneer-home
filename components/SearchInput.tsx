@@ -37,7 +37,7 @@ const SearchInput = ({ initialQuery }: { initialQuery?: string }) => {
       <TouchableOpacity onPress={searchPressHandler}>
         <Image
           source={icons.search}
-          style={{ width: spacing.smaller, height: spacing.smaller }}
+          style={{ width: spacing.large, height: spacing.large }}
           resizeMode="contain"
         />
       </TouchableOpacity>
@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     columnGap: spacing.tiny,
     width: "100%",
-    height: spacing.large,
+    height: 58,
     paddingHorizontal: spacing.tiny,
-    backgroundColor: colors.black.DEFAULT,
-    borderRadius: spacing.tiny,
+    backgroundColor: "#1E1E2D",
+    borderRadius: spacing.small,
     borderWidth: 2,
-    borderColor: colors.black.DEFAULT,
+    borderColor: "#232533",
   },
 });

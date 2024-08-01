@@ -5,13 +5,9 @@ import {
   appWriteDatabases,
   appWriteConfig,
 } from "./appwrite.config";
+import { SignInParams, SignUpParams } from "@/@types";
 
-
-export async function createUser(
-  email: string,
-  password: string,
-  username: string
-) {
+export async function createUser({ email, password, username }: SignUpParams) {
   try {
     const newAccount = await appWriteAccount.create(
       ID.unique(),
@@ -24,7 +20,7 @@ export async function createUser(
 
     const avatarUrl = appWriteAvatars.getInitials(username);
 
-    await signIn(email, password);
+    await signIn({ email, password });
 
     const newUser = await appWriteDatabases.createDocument(
       appWriteConfig.databaseId,
@@ -37,18 +33,26 @@ export async function createUser(
         avatar: avatarUrl,
       }
     );
+
     return newUser;
   } catch (error: any) {
+    console.log("ERRORRRRRR-----------", { error });
     throw new Error(error);
   }
 }
 
-export async function signIn(email: string, password: string) {
+export async function signIn({ email, password }: SignInParams) {
   try {
     // @ts-ignore
-    const session = await appWriteAccount.createEmailSession(email, password);
+    const session = await appWriteAccount.createEmailPasswordSession(
+      email,
+      password
+    );
+
     return session;
   } catch (error: any) {
+    console.log({ error });
+
     throw new Error(error);
   }
 }
@@ -66,6 +70,7 @@ export async function getAccount() {
 export async function getCurrentUser() {
   try {
     const currentAccount = await getAccount();
+
     if (!currentAccount) throw Error;
 
     const currentUser = await appWriteDatabases.listDocuments(

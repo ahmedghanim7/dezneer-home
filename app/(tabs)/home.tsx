@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 
-import { images } from "../../constants";
-// import useAppwrite from "../../lib/useAppwrite";
-// import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
-import Screen from "@/components/Screen";
 import { Posts } from "@/@types";
 import HomeHeader from "@/components/home/HomeHeader";
+import { Screen } from "@/components/common";
+import { DummyPosts } from "@/constants";
+import { spacing } from "@/theme";
 
 const Home = () => {
   // const { data: posts, refetch } = useAppwrite(getAllPosts);
@@ -22,22 +20,13 @@ const Home = () => {
     setRefreshing(false);
   };
 
-  const posts: Posts[] = [];
-
   return (
-    <Screen scrollable={false}>
+    <Screen scrollable={false} top="huge" px="none">
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={posts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <VideoCard
-            title={item.title}
-            thumbnail={item.thumbnail}
-            video={item.video}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
-          />
-        )}
+        renderItem={({ item }) => <VideoCard videoInfo={item} containerStyles={{marginHorizontal:spacing.xLarge}} />}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={() => (
           <EmptyState
@@ -54,3 +43,27 @@ const Home = () => {
 };
 
 export default Home;
+
+export const posts: Posts[] = [
+  {
+    creator: { avatar: DummyPosts.DummyAvatar, username: "Ahmed GH" },
+    $id: "1114785",
+    thumbnail: DummyPosts.Thumbnail1,
+    title: "title 1 for some desc...",
+    video: DummyPosts.Video1,
+  },
+  {
+    creator: { avatar: DummyPosts.DummyAvatar, username: "John Mat" },
+    $id: "44758",
+    thumbnail: DummyPosts.Thumbnail2,
+    title: "what did you think title 2 for some desc...",
+    video: DummyPosts.Video2,
+  },
+  {
+    creator: { avatar: DummyPosts.DummyAvatar, username: "Andrian Jil" },
+    $id: "778596",
+    thumbnail: DummyPosts.Thumbnail3,
+    title: "did you think title 3 for some desc...",
+    video: DummyPosts.Video3,
+  },
+];

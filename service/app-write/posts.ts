@@ -3,6 +3,8 @@ import { appWriteConfig, appWriteDatabases } from "./appwrite.config";
 import { uploadFile } from "./files";
 
 export async function createVideoPost(form: any) {
+  console.log("createVideoPost", form);
+
   try {
     const [thumbnailUrl, videoUrl] = await Promise.all([
       uploadFile(form.thumbnail, "image"),
@@ -24,6 +26,8 @@ export async function createVideoPost(form: any) {
 
     return newPost;
   } catch (error: any) {
+    console.log("createVideoPost", { error });
+
     throw new Error(error);
   }
 }

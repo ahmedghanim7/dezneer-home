@@ -1,5 +1,5 @@
-import CustomText from "@/components/CustomText";
-import Screen from "@/components/Screen";
+import CustomText from "@/components/common/CustomText";
+import Screen from "@/components/common/Screen";
 
 const Bookmark = () => {
   return (

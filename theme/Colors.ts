@@ -7,7 +7,7 @@ const secondary = {
   200: "#FF8E01",
 };
 const black = {
-  DEFAULT: "#000",
+  DEFAULT: "#161622",
   100: "#1E1E2D",
   200: "#232533",
 };
@@ -25,12 +25,37 @@ const gray = {
   900: "#111827",
 };
 
+const red = {
+  red: "#EF4444", // Main
+  redLight: "#FEE2E2",
+  redDark: "#B91C1C",
+};
+const yellow = {
+  yellow: "#F2A60D", // Main
+  yellowLight: "#FDF7EB",
+  yellowDark: "#C2850A",
+};
+const green = {
+  green: "#087F23", // Main
+  greenLight: "#E7F3E7",
+  greenDark: "#005005",
+};
+const blue = {
+  blue: "#1E88E5", // Main
+  blueLight: "#E9F4FF",
+  blueDark: "#005CB2",
+};
+
 export const colors = {
   primary,
   white,
   black,
   gray,
   secondary,
+  red,
+  yellow,
+  green,
+  blue,
 };
 
 export const Colors = {

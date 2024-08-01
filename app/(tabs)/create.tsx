@@ -1,116 +1,117 @@
 import { useState } from "react";
 import * as DocumentPicker from "expo-document-picker";
-import { CustomButton, FormField } from "../../components";
 import { spacing } from "@/theme";
-import CustomText from "@/components/CustomText";
-import Screen from "@/components/Screen";
 import UploadVideo from "@/components/create/UploadVideo";
 import AddThumbnailImage from "@/components/create/AddThumbnailImage";
+import {
+  CustomButton,
+  CustomText,
+  FormField,
+  Screen,
+} from "@/components/common";
+import { Alert, View } from "react-native";
+import { FileMedia } from "@/@types/Posts.type";
+import { useAppSelector } from "@/store";
+import { router } from "expo-router";
+import { createVideoPost } from "@/service/app-write/posts";
+import { extractDataFile, validateFormNotEmpty } from "@/utils/functions";
+
+interface Form {
+  title?: string;
+  video?: FileMedia;
+  thumbnail?: FileMedia;
+  prompt?: string;
+}
 
 const Create = () => {
   const [uploading, setUploading] = useState(false);
-  const [form, setForm] = useState({
+  const initialFormState: Form = {
     title: "",
-    video: { localUri: "" },
-    thumbnail: { localUri: "" },
+    video: {},
+    thumbnail: {},
     prompt: "",
-  });
+  };
+  const [form, setForm] = useState<Form>(initialFormState);
+
+  const { username, $id } = useAppSelector((state) => state.user);
 
   const openPicker = async (mediaType: string) => {
-    const result = await DocumentPicker.getDocumentAsync({
+    const pickedMedia = await DocumentPicker.getDocumentAsync({
       type:
         mediaType === "image"
           ? ["image/png", "image/jpg"]
           : ["video/mp4", "video/gif"],
     });
-
-    console.log({ result });
-
-    // if (!result.canceled) {
-    //   if (mediaType === "image") {
-    //     setForm({
-    //       ...form,
-    //       thumbnail: result.assets[0],
-    //     });
-    //   }
-
-    //   if (mediaType === "video") {
-    //     setForm({
-    //       ...form,
-    //       video: result.assets[0],
-    //     });
-    //   }
-    // } else {
-    //   setTimeout(() => {
-    //     Alert.alert("Document picked", JSON.stringify(result, null, 2));
-    //   }, 100);
-    // }
+    if (!pickedMedia.canceled) {
+      const extractedMedia = extractDataFile(pickedMedia.assets[0]);
+      const updatedMediaKey = mediaType === "image" ? "thumbnail" : "video";
+      setForm({
+        ...form,
+        [updatedMediaKey]: extractedMedia,
+      });
+    } else {
+      setTimeout(() => {
+        Alert.alert("Document picked", JSON.stringify(pickedMedia, null, 2));
+      }, 100);
+    }
   };
 
   const submit = async () => {
-    // if (
-    //   (form.prompt === "") |
-    //   (form.title === "") |
-    //   !form.thumbnail |
-    //   !form.video
-    // ) {
-    //   return Alert.alert("Please provide all fields");
-    // }
-    // setUploading(true);
-    // try {
-    //   await createVideoPost({
-    //     ...form,
-    //     userId: user.$id,
-    //   });
-    //   Alert.alert("Success", "Post uploaded successfully");
-    //   router.push("/home");
-    // } catch (error) {
-    //   Alert.alert("Error", error.message);
-    // } finally {
-    //   setForm({
-    //     title: "",
-    //     video: null,
-    //     thumbnail: null,
-    //     prompt: "",
-    //   });
-    //   setUploading(false);
-    // }
+    if (!validateFormNotEmpty(form)) {
+      return;
+    }
+    setUploading(true);
+    try {
+      await createVideoPost({
+        ...form,
+        userId: $id,
+      });
+      Alert.alert("Success", "Post uploaded successfully");
+      router.push("/home");
+    } catch (error: any) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setForm(initialFormState);
+      setUploading(false);
+    }
   };
 
   return (
-    <Screen scrollable px="tiny" top="smaller" bottom="smaller">
-      <CustomText content="Upload Video" variant="largeSemiBold" />
+    <Screen scrollable px="xLarge" top="xxLarge" bottom="xxxLarge">
+      <CustomText
+        content="Upload Video"
+        variant="xLargeBold"
+        textStyles={{ textAlign: "left", margin: 0 }}
+      />
+      <View style={{ marginTop: 32, rowGap: spacing.xLarge }}>
+        <FormField
+          label="Video Title"
+          value={form.title || ""}
+          placeholder="Give your video a catchy title..."
+          onChangeText={(e) => setForm({ ...form, title: e })}
+          containerStyles={{ marginTop: spacing.medium - 2 }}
+        />
+        <UploadVideo openPicker={openPicker} video={form.video || {}} />
+        <AddThumbnailImage
+          openPicker={openPicker}
+          thumbnail={form.thumbnail || {}}
+        />
 
-      <FormField
-        label="Video Title"
-        value={form.title}
-        placeholder="Give your video a catchy title..."
-        onChangeText={(e) => setForm({ ...form, title: e })}
-        containerStyles={{ marginTop: spacing.medium - 2 }}
-      />
-      <UploadVideo
-        openPicker={openPicker}
-        video={form.video || { localUri: "" }}
-      />
-      <AddThumbnailImage
-        openPicker={openPicker}
-        thumbnail={form.video || { localUri: "" }}
-      />
+        <FormField
+          label="AI Prompt"
+          value={form.prompt || ""}
+          placeholder="The AI prompt of your video...."
+          onChangeText={(e) => setForm({ ...form, prompt: e })}
+          containerStyles={{ marginTop: spacing.small }}
+        />
 
-      <FormField
-        label="AI Prompt"
-        value={form.prompt}
-        placeholder="The AI prompt of your video...."
-        onChangeText={(e) => setForm({ ...form, prompt: e })}
-        containerStyles={{ marginTop: spacing.small }}
-      />
-
-      <CustomButton
-        title="Submit & Publish"
-        onPress={submit}
-        containerStyles={{ marginTop: spacing.small }}
-        isLoading={uploading}
-      />
+        <CustomButton
+          title="Submit & Publish"
+          onPress={submit}
+          containerStyles={{ marginTop: spacing.small }}
+          isLoading={uploading}
+        />
+      </View>
     </Screen>
   );
 };

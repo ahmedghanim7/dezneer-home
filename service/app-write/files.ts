@@ -1,4 +1,4 @@
-import { ID } from "react-native-appwrite";
+import { ID, ImageGravity } from "react-native-appwrite";
 import { appWriteConfig, appWriteStorage } from "./appwrite.config";
 
 export async function uploadFile(file: any, type: string) {
@@ -6,6 +6,7 @@ export async function uploadFile(file: any, type: string) {
 
   const { mimeType, ...rest } = file;
   const asset = { type: mimeType, ...rest };
+  console.log({ asset });
 
   try {
     const uploadedFile = await appWriteStorage.createFile(
@@ -17,6 +18,8 @@ export async function uploadFile(file: any, type: string) {
     const fileUrl = await getFilePreview(uploadedFile.$id, type);
     return fileUrl;
   } catch (error: any) {
+    console.log("uploadFile", { error });
+
     throw new Error(error);
   }
 }
@@ -33,7 +36,7 @@ export async function getFilePreview(fileId: string, type: string) {
         fileId,
         2000,
         2000,
-        undefined, //top
+        ImageGravity.Top,
         100
       );
     } else {

@@ -2,33 +2,35 @@ import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { colors, spacing } from "@/theme";
 import { ResizeMode, Video } from "expo-av";
-import CustomText from "../CustomText";
 import { icons } from "@/constants";
+import { CustomText } from "../common";
+import { FileMedia } from "@/@types/Posts.type";
 
 interface UploadVideoProps {
   openPicker: (mediaType: string) => void;
-  video: SelectedVideo;
+  video: FileMedia;
 }
 
-interface SelectedVideo {
-  localUri: string;
-}
 const UploadVideo = ({ openPicker, video }: UploadVideoProps) => {
   return (
-    <View style={{ marginTop: spacing.small, rowGap: 2 }}>
-      <CustomText content="Upload Video" variant="largeSemiBold" />
-      <TouchableOpacity onPress={() => openPicker("video")}>
-        {video ? (
+    <View style={styles.container}>
+      <CustomText
+        content="Upload Video"
+        variant="mediumRegular"
+        color={colors.gray[300]}
+      />
+      <TouchableOpacity
+        style={{ width: "100%" }}
+        onPress={() => openPicker("video")}
+      >
+        {video.uri ? (
           <Video
-            source={{ uri: video.localUri }}
-            style={{
-              width: "100%",
-              height: 64,
-              borderRadius: spacing.xxLarge,
-            }}
+            source={{ uri: video.uri }}
+            style={styles.videoStyles}
             useNativeControls
-            resizeMode={ResizeMode.COVER}
+            resizeMode={ResizeMode.STRETCH}
             isLooping
+            shouldPlay
           />
         ) : (
           <View style={styles.uploadVideoContainer}>
@@ -50,21 +52,27 @@ const UploadVideo = ({ openPicker, video }: UploadVideoProps) => {
 export default UploadVideo;
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: spacing.small,
+    rowGap: spacing.small,
+    alignItems: "flex-start",
+  },
+  videoStyles: { width: "100%", height: 150, borderRadius: spacing.xxLarge },
   uploadVideoContainer: {
     width: "100%",
-    height: 40,
-    paddingHorizontal: spacing.tiny,
-    backgroundColor: colors.black.DEFAULT,
-    borderRadius: spacing.xxLarge,
+    height: 150,
+    backgroundColor: colors.black[100],
+    borderRadius: spacing.normal,
     borderWidth: 1,
     borderColor: colors.black[200],
     alignItems: "center",
     justifyContent: "center",
   },
   uploadVideoIcon: {
-    width: 14,
-    height: 14,
-    borderWidth: 1,
+    width: 50,
+    height: 50,
+    borderRadius: spacing.small + 2,
+    borderWidth: 2,
     borderStyle: "dashed",
     borderColor: colors.secondary.DEFAULT,
     alignItems: "center",

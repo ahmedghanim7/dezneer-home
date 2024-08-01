@@ -1,81 +1,42 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import { colors, spacing } from "@/theme";
-import { icons } from "@/constants";
-import InfoBox from "../InfoBox";
+import { spacing } from "@/theme";
+import { DummyPosts, icons } from "@/constants";
+import InfoBox from "../common/InfoBox";
+import { router } from "expo-router";
+import { Avatar, CustomText, IconButton } from "../common";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { clearUser } from "@/store/features/user";
+import { signOut } from "@/service/app-write/auth";
 
-interface ProfileHeaderProps {
-  logout?: () => void;
-  user?: User;
-  posts?: [];
-}
+const ProfileHeader = () => {
+  const { username, avatar } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  console.log({ username, avatar });
 
-interface User {
-  avatar?: string;
-  username?: string;
-}
+  const logout = async () => {
+    await signOut();
+    dispatch(clearUser());
+    router.replace("/sign-in");
+  };
 
-const ProfileHeader = ({ logout, user, posts }: ProfileHeaderProps) => {
   return (
-    <View
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: spacing.smaller,
-        marginBottom: spacing.normal,
-        paddingHorizontal: spacing.tiny,
-      }}
-    >
-      <TouchableOpacity
+    <View style={styles.container}>
+      <IconButton
+        icon={icons.logout}
         onPress={logout}
-        style={{
-          display: "flex",
-          width: "100%",
-          alignItems: "flex-end",
-          marginBottom: spacing.medium,
-        }}
-      >
-        <Image
-          source={icons.logout}
-          resizeMode="contain"
-          style={{ width: spacing.small, height: spacing.small }}
-        />
-      </TouchableOpacity>
-
-      <View
-        style={{
-          width: spacing.xLarge,
-          height: spacing.xLarge,
-          borderWidth: 2,
-          borderColor: colors.secondary.DEFAULT,
-          borderRadius: spacing.tiny,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          source={{ uri: user?.avatar }}
-          style={{ width: "90%", height: "90%", borderRadius: spacing.xLarge }}
-          resizeMode="cover"
-        />
-      </View>
-
-      {user?.username && (
-        <InfoBox
-          title={user?.username}
-          containerStyles={{ marginTop: spacing.smaller }}
+        containerStyle={styles.logoutContainer}
+        iconStyle={{ width: spacing.xLarge, height: spacing.xLarge }}
+      />
+      <Avatar source={{ url: avatar }} width={56} height={56} />
+      {true && (
+        <CustomText
+          content={username}
+          variant="largeBold"
+          textStyles={styles.username}
         />
       )}
-
-      <View
-        style={{
-          marginTop: spacing.smaller,
-          flexDirection: "row",
-        }}
-      >
+      <View style={{ flexDirection: "row" }}>
         <InfoBox
           title={"17"}
           subtitle="Posts"
@@ -89,4 +50,19 @@ const ProfileHeader = ({ logout, user, posts }: ProfileHeaderProps) => {
 
 export default ProfileHeader;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: spacing.smaller,
+    marginBottom: spacing.normal,
+  },
+  logoutContainer: {
+    marginBottom: spacing.medium,
+    alignSelf: "flex-end",
+    padding: spacing.tiny,
+  },
+
+  username: { marginTop: spacing.medium, marginBottom: spacing.large },
+});

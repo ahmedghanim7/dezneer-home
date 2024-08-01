@@ -1,29 +1,34 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
-import CustomText from "../CustomText";
+import CustomText from "../common/CustomText";
 import { colors, spacing } from "@/theme";
 import { icons } from "@/constants";
+import { FileMedia } from "@/@types/Posts.type";
 
 interface AddThumbnailImageProps {
   openPicker: (mediaType: string) => void;
-  thumbnail: Thumbnail;
+  thumbnail: FileMedia;
 }
 
-interface Thumbnail {
-  localUri: string;
-}
 const AddThumbnailImage = ({
   openPicker,
   thumbnail,
 }: AddThumbnailImageProps) => {
   return (
-    <View style={{ marginTop: spacing.small, rowGap: 2 }}>
-      <CustomText content="Thumbnail Image" variant="largeSemiBold" />
+    <View style={styles.container}>
+      <CustomText
+        content="Thumbnail Image"
+        variant="mediumRegular"
+        color={colors.gray[300]}
+      />
 
-      <TouchableOpacity onPress={() => openPicker("image")}>
-        {thumbnail ? (
+      <TouchableOpacity
+        style={{ width: "100%" }}
+        onPress={() => openPicker("image")}
+      >
+        {thumbnail.uri ? (
           <Image
-            source={{ uri: thumbnail.localUri }}
+            source={{ uri: thumbnail.uri }}
             resizeMode="cover"
             style={styles.thumbnailImage}
           />
@@ -35,7 +40,7 @@ const AddThumbnailImage = ({
               alt="upload"
               style={styles.chooseThumbnailIcon}
             />
-            <CustomText content="Choose a file" variant="mediumMedium" />
+            <CustomText content="Choose a file" variant="smallRegular" />
           </View>
         )}
       </TouchableOpacity>
@@ -46,16 +51,21 @@ const AddThumbnailImage = ({
 export default AddThumbnailImage;
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: spacing.small,
+    rowGap: spacing.small,
+    alignItems: "flex-start",
+  },
   thumbnailImage: {
     width: "100%",
-    height: 64,
+    height: 150,
     borderRadius: spacing.xxLarge,
   },
   chooseThumbnailContainer: {
     width: "100%",
-    height: spacing.normal,
-    backgroundColor: colors.black.DEFAULT,
-    borderRadius: spacing.xxLarge,
+    height: 58,
+    backgroundColor: colors.black[100],
+    borderRadius: spacing.normal,
     borderWidth: 2,
     borderColor: colors.black[200],
     display: "flex",
@@ -64,5 +74,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     columnGap: 2,
   },
-  chooseThumbnailIcon: { width: spacing.smaller, height: spacing.smaller },
+  chooseThumbnailIcon: { width: spacing.large, height: spacing.large },
 });

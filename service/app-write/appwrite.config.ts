@@ -11,9 +11,9 @@ export const appWriteConfig = {
   platform: "com.ahmedghanim.anora",
   projectId: "66a42fbd000ff36bc1ae",
   storageId: "66a65f66002d94a3e3e5",
-  databaseId: "660d14b2b809e838959a",
+  databaseId: "66a65b2a000c73a52395",
   userCollectionId: "66a65b33000bbd806d86",
-  videoCollectionId: "660d157fcb8675efe308",
+  videoCollectionId: "66a65ba50019e8d6c84e",
 };
 
 export const appWriteClient = new Client();

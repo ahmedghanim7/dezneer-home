@@ -2,10 +2,9 @@ import { router } from "expo-router";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 import { images } from "../constants";
-import CustomButton from "./CustomButton";
 import { spacing } from "@/theme";
-import CustomText from "./CustomText";
 import { useCallback } from "react";
+import { CustomButton, CustomText } from "./common";
 
 interface EmptyStateProps {
   title: string;
@@ -13,7 +12,6 @@ interface EmptyStateProps {
 }
 
 const EmptyState = ({ title, subtitle }: EmptyStateProps) => {
-  // Memoize the navigation function
   const handleNavigate = useCallback(() => {
     router.push("/home");
   }, []);
@@ -23,16 +21,20 @@ const EmptyState = ({ title, subtitle }: EmptyStateProps) => {
       <Image
         source={images.empty}
         resizeMode="contain"
-        style={{ width: 270, height: 216 }}
+        style={{ width: "70%", height: 200 }}
       />
-
-      <CustomText content={title} variant="xLargeBold" />
-      {subtitle && <CustomText content={subtitle} variant="mediumRegular" />}
-
+      <CustomText content={title} variant="smallRegular" />
+      {subtitle && (
+        <CustomText
+          content={subtitle}
+          variant="largeBold"
+          containerStyles={{ marginTop: spacing.small }}
+        />
+      )}
       <CustomButton
         title="Back to Explore"
         onPress={handleNavigate}
-        containerStyles={{ width: "100%", marginVertical: spacing.smaller }}
+        containerStyles={{ width: "100%", marginVertical: spacing.xLarge }}
       />
     </View>
   );

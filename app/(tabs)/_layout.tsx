@@ -1,11 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { Redirect, Tabs } from "expo-router";
-import { Image, Text, View } from "react-native";
 
 import { icons } from "../../constants";
-import { Loader } from "../../components";
-import { useGlobalContext } from "../../context/GlobalProvider";
-import BottomTabIcon from "@/components/BottomTabIcon/BottomTabIcon";
+import BottomTabIcon from "@/components/navigation/BottomTabIcon";
 
 const TabLayout = () => {
   // const { loading, isLogged } = useGlobalContext();
@@ -62,14 +59,14 @@ const tabs = [
     icon: icons.home,
   },
   {
-    title: "Bookmark",
-    name: "bookmark",
-    icon: icons.bookmark,
-  },
-  {
     title: "Create",
     name: "create",
     icon: icons.plus,
+  },
+  {
+    title: "Bookmark",
+    name: "bookmark",
+    icon: icons.bookmark,
   },
   {
     title: "Profile",

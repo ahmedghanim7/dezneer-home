@@ -17,12 +17,14 @@ interface AddThumbnailImageProps {
   openPicker: (mediaType: string) => void;
   thumbnail: FileMedia;
   clearMedia: (type: string) => void;
+  uploading: boolean;
 }
 
 const AddThumbnailImage = ({
   openPicker,
   thumbnail,
   clearMedia,
+  uploading,
 }: AddThumbnailImageProps) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -37,6 +39,7 @@ const AddThumbnailImage = ({
 
         {thumbnail.uri && (
           <Button
+            isLoading={uploading}
             variant="smallRegular"
             title="Clear"
             containerStyles={styles.clearButton}

@@ -96,11 +96,13 @@ const CreatePostScreen = () => {
           containerStyles={{ marginTop: spacing.medium - 2 }}
         />
         <UploadVideo
+          uploading={uploading}
           clearMedia={clearMedia}
           openPicker={openPicker}
           video={form.video || {}}
         />
         <AddThumbnailImage
+          uploading={uploading}
           clearMedia={clearMedia}
           openPicker={openPicker}
           thumbnail={form.thumbnail || {}}

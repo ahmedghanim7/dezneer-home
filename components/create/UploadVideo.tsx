@@ -10,9 +10,15 @@ interface UploadVideoProps {
   openPicker: (mediaType: string) => void;
   video: FileMedia;
   clearMedia: (type: string) => void;
+  uploading: boolean;
 }
 
-const UploadVideo = ({ openPicker, video, clearMedia }: UploadVideoProps) => {
+const UploadVideo = ({
+  openPicker,
+  uploading,
+  video,
+  clearMedia,
+}: UploadVideoProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -23,6 +29,7 @@ const UploadVideo = ({ openPicker, video, clearMedia }: UploadVideoProps) => {
         />
         {video.uri && (
           <Button
+            isLoading={uploading}
             variant="smallRegular"
             title="Clear"
             containerStyles={styles.clearButton}

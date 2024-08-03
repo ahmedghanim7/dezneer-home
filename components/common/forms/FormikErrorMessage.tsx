@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Typography from "./Typography";
+import Typography from "../Typography";
 import { colors } from "@/theme";
 
 interface FormikErrorMessageProps {

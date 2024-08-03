@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
-import { VideoPlayer } from "../common";
+import { VideoPlayer, VideoThumbnail } from "../common";
 import { Post } from "@/@types";
 import { colors } from "@/theme";
 
@@ -13,18 +13,15 @@ const TrendingVideoItem = ({ item }: { item: Post }) => {
       // animation={activeItem === item?.$id ? zoomIn : zoomOut}
       duration={500}
     >
-      <VideoPlayer
-        containerStyles={{ width: 148, height: 236 }}
-        videoStyles={{ width: 148, height: 236 }}
-        isVideoPlaying={isVideoPlaying}
-        setIsVideoPlaying={setIsVideoPlaying}
-        thumbnailUrl={item.thumbnailUrl}
-        videoUrl={item.videoUrl}
+      <VideoThumbnail
+        post={item}
         thumbnailStyles={{
           borderRadius: 14,
           shadowOffset: { height: 5, width: 5 },
           shadowColor: colors.black[100],
           shadowOpacity: 0.4,
+          width: 148,
+          height: 236,
         }}
       />
     </Animatable.View>
@@ -43,6 +40,7 @@ const zoomIn: any = {
 };
 
 const zoomOut: any = {
+  //  Animatable.CustomAnimation<TextStyle & ViewStyle & ImageStyle> = {
   0: {
     scale: 1,
   },

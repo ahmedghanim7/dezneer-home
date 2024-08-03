@@ -34,7 +34,8 @@ const Profile = () => {
           <EmptyState
             title="No Videos Found"
             subtitle="No videos found for this profile"
-            isLoading={isFetching}
+            isLoading={false}
+            marginHorizontal={"none"}
           />
         )}
         ListHeaderComponent={<ProfileHeader />}

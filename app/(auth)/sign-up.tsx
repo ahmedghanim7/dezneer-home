@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link, router } from "expo-router";
-import { View, Dimensions, Alert, Image, StyleSheet } from "react-native";
-
-import { images } from "../../constants";
+import { View, Dimensions, Image, StyleSheet } from "react-native";
 import { colors, spacing } from "@/theme";
 import { createUser } from "@/service/app-write/auth";
 import { IFormField, SignUpParams } from "@/@types";
@@ -11,7 +9,8 @@ import { setUser } from "@/store/features/user";
 import { SignupSchema } from "@/utils/validation";
 import { Typography, FormikForm, Screen } from "@/components/common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Toast from "react-native-toast-message";
+import { images } from "@/assets";
+import { showToastError, showToastSuccess } from "@/utils";
 
 const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
@@ -32,18 +31,11 @@ const SignUp = () => {
           username,
         })
       );
-      Toast.show({
-        type: "success",
-        text1: "Account created successfully",
-      });
+      showToastSuccess("Account created successfully");
       router.replace("/home");
     } catch (error: any) {
       console.log({ error });
-
-      Toast.show({
-        type: "error",
-        text1: error?.message,
-      });
+      showToastError(error?.message);
     } finally {
       setSubmitting(false);
     }

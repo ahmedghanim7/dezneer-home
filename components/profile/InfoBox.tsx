@@ -1,6 +1,6 @@
 import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
-import Typography from "./Typography";
 import { colors } from "@/theme";
+import { Typography } from "../common";
 
 interface InfoBoxProps {
   title: string;

@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { Link, router } from "expo-router";
 import { View, Dimensions, Image, StyleSheet } from "react-native";
-import { images } from "../../constants";
 import { colors, spacing } from "@/theme";
 import { SignInSchema } from "@/utils/validation";
-import { getCurrentUser, signIn, signOut } from "@/service/app-write/auth";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { getCurrentUser, signIn } from "@/service/app-write/auth";
+import { useAppDispatch } from "@/store";
 import { setUser } from "@/store/features/user";
 import { IFormField, SignInParams } from "@/@types";
 import { Typography, FormikForm, Screen } from "@/components/common";
 import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { images } from "@/assets";
+import { showToastError } from "@/utils";
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
@@ -34,10 +35,7 @@ const SignIn = () => {
       router.replace("/home");
     } catch (error: any) {
       console.log({ error });
-      Toast.show({
-        type: "error",
-        text1: error?.message,
-      });
+      showToastError(error?.message);
     } finally {
       setIsSubmitting(false);
     }

@@ -1,14 +1,14 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { spacing } from "@/theme";
-import { icons } from "@/constants";
-import InfoBox from "../common/InfoBox";
+import InfoBox from "./InfoBox";
 import { router } from "expo-router";
 import { Avatar, Typography, IconButton } from "../common";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { clearUser } from "@/store/features/user";
 import { signOut } from "@/service/app-write/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { icons } from "@/assets";
 
 const ProfileHeader = () => {
   const { username, avatar } = useAppSelector((state) => state.user);

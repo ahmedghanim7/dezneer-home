@@ -1,27 +1,47 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { colors, spacing } from "@/theme";
-import { icons } from "@/constants";
 import { FileMedia } from "@/@types/Posts.type";
-import { Typography } from "../common";
+import { Button, Typography } from "../common";
+import { icons } from "@/assets";
 
 interface AddThumbnailImageProps {
   openPicker: (mediaType: string) => void;
   thumbnail: FileMedia;
+  clearMedia: (type: string) => void;
 }
 
 const AddThumbnailImage = ({
   openPicker,
   thumbnail,
+  clearMedia,
 }: AddThumbnailImageProps) => {
   return (
     <View style={styles.container}>
-      <Typography
-        content="Thumbnail Image"
-        variant="mediumRegular"
-        color={colors.gray.DEFAULT}
-      />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <Typography
+          content="Thumbnail Image"
+          variant="mediumRegular"
+          color={colors.gray.DEFAULT}
+        />
 
+        {thumbnail.uri && (
+          <Button
+            variant="smallRegular"
+            title="Clear"
+            containerStyles={styles.clearButton}
+            textStyles={{ color: "white" }}
+            onPress={() => clearMedia("thumbnail")}
+          />
+        )}
+      </View>
       <TouchableOpacity
         style={{ width: "100%" }}
         onPress={() => openPicker("image")}
@@ -75,4 +95,12 @@ const styles = StyleSheet.create({
     columnGap: 2,
   },
   chooseThumbnailIcon: { width: spacing.large, height: spacing.large },
+  clearButton: {
+    minHeight: 20,
+    paddingHorizontal: 4,
+    paddingVertical: 4,
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: colors.red.redDark,
+  },
 });

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Avatar, Typography, IconButton } from "../common";
-import { icons } from "@/constants";
+import { icons } from "@/assets";
 
 interface VideoCardHeaderProps {
   avatar: string;

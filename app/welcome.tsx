@@ -1,8 +1,8 @@
 import { router } from "expo-router";
 import { View, Image, StyleSheet } from "react-native";
-import { images } from "../constants";
 import { colors, spacing } from "@/theme";
 import { Button, Typography, Screen } from "@/components/common";
+import { images } from "@/assets";
 const Welcome = () => {
   // if (!loading && isLogged) return <Redirect href="/home" />;
 
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // // paddingHorizontal: spacing.large,
     rowGap: 10,
   },
   image: {

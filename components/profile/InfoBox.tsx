@@ -1,4 +1,4 @@
-import { View, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
+import { View, StyleProp, ViewStyle, TextStyle } from "react-native";
 import { colors } from "@/theme";
 import { Typography } from "../common";
 

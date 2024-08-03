@@ -3,9 +3,8 @@ import { View, Image, StyleSheet } from "react-native";
 import { colors, spacing } from "@/theme";
 import { Button, Typography, Screen } from "@/components/common";
 import { images } from "@/assets";
-const Welcome = () => {
-  // if (!loading && isLogged) return <Redirect href="/home" />;
 
+const WelcomeScreen = () => {
   return (
     <Screen withStatusBar px="none" scrollable={false}>
       <View style={styles.viewContainer}>
@@ -56,7 +55,7 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   viewContainer: {
@@ -65,10 +64,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     rowGap: 10,
   },
-  image: {
-    width: "100%",
-    height: 298,
-  },
+  image: { width: "100%", height: 298 },
   aroaPath: {
     position: "absolute",
     bottom: 0,

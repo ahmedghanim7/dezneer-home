@@ -11,15 +11,20 @@ import { Typography, FormikForm, Screen } from "@/components/common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { images } from "@/assets";
 import { showToastError, showToastSuccess } from "@/utils";
+import { trimString } from "@/utils/functions";
 
-const SignUp = () => {
+const SignUpScreen = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
   const SignUpHandler = async (params: SignUpParams) => {
     setSubmitting(true);
     try {
-      const user = await createUser(params);
+      const user = await createUser({
+        email: trimString(params.email),
+        password: trimString(params.password),
+        username: trimString(params.username),
+      });
       const { accountId, $id, email, username, avatar } = user;
       await AsyncStorage.setItem("accountId", accountId);
       dispatch(
@@ -79,7 +84,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

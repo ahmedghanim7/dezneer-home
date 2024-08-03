@@ -2,7 +2,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { colors, spacing } from "@/theme";
 import { ResizeMode, Video } from "expo-av";
-import { Button, IconButton, Typography } from "../common";
+import { Button, Typography } from "../common";
 import { FileMedia } from "@/@types/Posts.type";
 import { icons } from "@/assets";
 
@@ -15,14 +15,7 @@ interface UploadVideoProps {
 const UploadVideo = ({ openPicker, video, clearMedia }: UploadVideoProps) => {
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
+      <View style={styles.titleContainer}>
         <Typography
           content="Upload Video"
           variant="mediumRegular"
@@ -104,5 +97,11 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: colors.red.redDark,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
   },
 });

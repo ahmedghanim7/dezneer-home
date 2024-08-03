@@ -19,7 +19,7 @@ interface Form {
   prompt?: string;
 }
 
-const Create = () => {
+const CreatePostScreen = () => {
   const [uploading, setUploading] = useState(false);
   const initialFormState: Form = {
     title: "",
@@ -125,4 +125,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreatePostScreen;

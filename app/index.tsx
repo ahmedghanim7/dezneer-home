@@ -14,8 +14,6 @@ const Splash = () => {
     setIsLoading(true);
     try {
       const isAuthorized = await AsyncStorage.getItem("accountId");
-      console.log({ isAuthorized });
-
       if (isAuthorized) {
         const user = await getCurrentUser();
         dispatch(

@@ -36,8 +36,6 @@ const VideoPlayer = ({
 }: VideoPlayerProps) => {
   const onPlayHandler = () => setIsVideoPlaying(true);
 
-  console.log("player", { post });
-
   return (
     <View style={[{ width: "100%", height: 200 }, containerStyles]}>
       <VideoThumbnail

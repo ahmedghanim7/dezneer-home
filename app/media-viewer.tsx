@@ -1,22 +1,15 @@
 import { Dimensions, StyleSheet, View } from "react-native";
 import React from "react";
-import {
-  IconButton,
-  Screen,
-  Typography,
-  VideoThumbnail,
-} from "@/components/common";
+import { IconButton, Screen, Typography } from "@/components/common";
 import { icons } from "@/assets";
 import { useAppSelector } from "@/store";
-import { AVPlaybackStatus, ResizeMode, Video } from "expo-av";
+import { ResizeMode, Video } from "expo-av";
 import { spacing } from "@/theme";
 import { router } from "expo-router";
 
-const MediaViewer = () => {
+const MediaViewerScreen = () => {
   const { mediaType, post } = useAppSelector((state) => state.mediaViewer);
-  const isVideo = mediaType?.toLowerCase() === "video";
-  console.log("MEDIA_VIEWER", { post, mediaType });
-
+  // const isVideo = mediaType?.toLowerCase() === "video";
   return (
     <Screen top={50}>
       <View style={{ height: Dimensions.get("screen").height - 120 }}>
@@ -46,7 +39,7 @@ const MediaViewer = () => {
   );
 };
 
-export default MediaViewer;
+export default MediaViewerScreen;
 
 const styles = StyleSheet.create({
   topContainer: {

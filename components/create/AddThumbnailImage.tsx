@@ -1,5 +1,13 @@
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Image,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
 import { colors, spacing } from "@/theme";
 import { FileMedia } from "@/@types/Posts.type";
 import { Button, Typography } from "../common";
@@ -16,16 +24,11 @@ const AddThumbnailImage = ({
   thumbnail,
   clearMedia,
 }: AddThumbnailImageProps) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
+      <View style={styles.titleContainer}>
         <Typography
           content="Thumbnail Image"
           variant="mediumRegular"
@@ -64,6 +67,26 @@ const AddThumbnailImage = ({
           </View>
         )}
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -75,6 +98,12 @@ const styles = StyleSheet.create({
     marginTop: spacing.small,
     rowGap: spacing.small,
     alignItems: "flex-start",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
   },
   thumbnailImage: {
     width: "100%",
@@ -102,5 +131,49 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: colors.red.redDark,
+  },
+
+  // ////////////////////////////////////////////
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

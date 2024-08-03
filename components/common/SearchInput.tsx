@@ -26,7 +26,6 @@ const SearchInput = () => {
     if (pathName !== "/search") router.push("/search");
   };
 
-
   return (
     <View style={styles.container}>
       <TextInput
@@ -70,5 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
     color: colors.white,
     height: "80%",
+    paddingLeft: spacing.smaller,
   },
 });

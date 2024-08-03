@@ -29,7 +29,7 @@ const ProfileHeader = () => {
         containerStyle={styles.logoutContainer}
         iconStyle={{ width: spacing.xLarge, height: spacing.xLarge }}
       />
-      <Avatar source={{ url: avatar }} width={56} height={56} />
+      <Avatar source={avatar} width={56} height={56} />
       {true && (
         <Typography
           content={username}
@@ -39,11 +39,11 @@ const ProfileHeader = () => {
       )}
       <View style={{ flexDirection: "row" }}>
         <InfoBox
-          title={"17"}
+          title={"21"}
           subtitle="Posts"
           containerStyles={{ marginRight: spacing.medium }}
         />
-        <InfoBox title="1.2k" subtitle="Followers" />
+        <InfoBox title="3.7k" subtitle="Followers" />
       </View>
     </View>
   );

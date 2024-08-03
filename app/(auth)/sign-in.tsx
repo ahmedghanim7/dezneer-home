@@ -8,18 +8,23 @@ import { useAppDispatch } from "@/store";
 import { setUser } from "@/store/features/user";
 import { IFormField, SignInParams } from "@/@types";
 import { Typography, FormikForm, Screen } from "@/components/common";
-import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { images } from "@/assets";
 import { showToastError } from "@/utils";
-const SignIn = () => {
+import { trimString } from "@/utils/functions";
+
+const SignInScreen = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
   const signInHandler = async ({ email, password }: SignInParams) => {
     setIsSubmitting(true);
+
     try {
-      await signIn({ email, password });
+      await signIn({
+        email: trimString(email),
+        password: trimString(password),
+      });
       const user = await getCurrentUser();
       if (user?.accountId)
         await AsyncStorage.setItem("accountId", user?.accountId);
@@ -52,13 +57,9 @@ const SignIn = () => {
           />
           <Typography content={`Sign In`} variant="xLargeBold" />
         </View>
-
         <FormikForm
           fields={formFields}
-          initialValues={{
-            email: "test@test.com",
-            password: "Ahmed123@",
-          }}
+          initialValues={{ email: "", password: "" }}
           onSubmit={signInHandler}
           submitButtonLabel="Log In"
           validationSchema={SignInSchema}
@@ -78,7 +79,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInScreen;
 
 const styles = StyleSheet.create({
   container: {

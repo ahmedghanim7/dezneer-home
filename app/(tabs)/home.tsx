@@ -7,10 +7,9 @@ import { getAllPosts, getLatestPosts } from "@/service/app-write/posts";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setAllPosts, setLatestPosts } from "@/store/features/posts";
 import { useFetchData } from "@/hooks";
-import { useFocusEffect } from "expo-router";
 import { useEffect } from "react";
 
-const Home = () => {
+const HomeScreen = () => {
   const dispatch = useAppDispatch();
   const { allPosts } = useAppSelector((state) => state.posts);
 
@@ -59,4 +58,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeScreen;

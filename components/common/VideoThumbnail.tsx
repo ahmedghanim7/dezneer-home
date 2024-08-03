@@ -1,11 +1,8 @@
 import {
-  Dimensions,
   Image,
   StyleProp,
   StyleSheet,
-  Text,
   TouchableOpacity,
-  View,
   ViewStyle,
 } from "react-native";
 import React from "react";

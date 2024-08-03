@@ -47,7 +47,7 @@ export default function RootLayout() {
         <Stack.Screen name="search" options={{ headerShown: false }} />
         <Stack.Screen name="media-viewer" options={{ headerShown: false }} />
       </Stack>
-      <Toast autoHide bottomOffset={20} />
+      <Toast />
     </Provider>
   );
 }

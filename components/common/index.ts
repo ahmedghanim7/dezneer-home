@@ -12,6 +12,7 @@ import Avatar from "./Avatar";
 import IconButton from "./IconButton";
 import EmptyState from "./EmptyState";
 import SearchInput from "./SearchInput";
+import CustomToast from "./CustomToast";
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   IconButton,
   SearchInput,
   EmptyState,
+  CustomToast,
 };

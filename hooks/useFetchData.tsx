@@ -10,8 +10,6 @@ export const useFetchData = ({ func }: UseFetchDataProps) => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    console.log("fetchdata");
-    
     try {
       setIsFetching(true);
       await func();

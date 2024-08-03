@@ -6,7 +6,7 @@ import SearchHeader from "@/components/search/SearchHeader";
 import { useEffect } from "react";
 import { clearSearchValues } from "@/store/features/posts";
 
-const Search = () => {
+const SearchPostsScreen = () => {
   const { posts, searchedText } = useAppSelector(
     (state) => state.posts.searchedPosts
   );
@@ -38,4 +38,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchPostsScreen;

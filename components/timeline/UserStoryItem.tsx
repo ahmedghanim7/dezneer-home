@@ -46,9 +46,7 @@ const StoryItem: React.FC<StoryItemProps> = ({
     return circles;
   }, [storyCount]);
 
-  const onStoryItemPressHandler = () => {
-    console.log("onStoryItemPressHandler is running");
-  };
+  const onStoryItemPressHandler = () => {};
 
   return (
     <View style={styles.container}>
@@ -73,6 +71,8 @@ const StoryItem: React.FC<StoryItemProps> = ({
         variant="xSmallRegular"
         content={userName}
         color={newColors.black}
+        numberOfLines={1}
+        ellipsizeMode="tail"
       />
     </View>
   );
@@ -81,8 +81,9 @@ const StoryItem: React.FC<StoryItemProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginRight: spacing.normal - 2,
-    justifyContent: "center",
+    marginRight: spacing.medium,
+    width: 66,
+    height: 76,
   },
 
   svgContainer: {

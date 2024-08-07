@@ -27,10 +27,10 @@ const Typography = ({
   textStyles,
   touchable,
   onPress,
-  rest,
-  variant = "mediumRegular",
+  variant = "xSmallRegular",
   children,
   color,
+  ...rest
 }: TypographyProps) => {
   const textCustomStyles: StyleProp<TextStyle> = [
     typography[variant],

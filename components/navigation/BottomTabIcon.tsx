@@ -1,28 +1,35 @@
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Typography } from "../common";
+import { newColors } from "@/theme";
 
 interface BottomTabIconProps {
-  icon?: any;
+  Icon?: any;
   color: string;
   name: string;
   focused: boolean;
 }
 
-const BottomTabIcon = ({ color, focused, name, icon }: BottomTabIconProps) => {
+const BottomTabIcon = ({ color, focused, name, Icon }: BottomTabIconProps) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={icon}
-        resizeMode="contain"
-        tintColor={color}
-        style={{ width: 24, height: 24 }}
-      />
+      <View
+        style={[
+          styles.iconContainer,
+          focused ? { backgroundColor: "#5E60FF1A" } : {},
+        ]}
+      >
+        <Icon
+          // width={20}
+          // height={20}
+          fill={focused ? newColors.primary : newColors.gray[100]}
+        />
+      </View>
       <Typography
         content={name}
-        variant={focused ? "xSmallSemiBold" : "xSmallRegular"}
+        variant={"xxxxSmallRegular"}
         color={color}
-        textStyles={{ marginLeft: 3 }}
+        textStyles={{ textTransform: "uppercase", letterSpacing: 1.6 }}
       />
     </View>
   );
@@ -36,5 +43,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 2,
+  },
+  iconContainer: {
+    borderRadius: 12,
+    width: 40,
+    height: 24,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

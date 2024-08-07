@@ -31,6 +31,15 @@ const blue = {
   blueDark: "#005CB2",
 };
 
+const primary = "5E60FF";
+
+export const newColors = {
+  gray: { 100: "#808080", 200: "#666666", 300: "#D9D9D9", 400: "#707070" },
+  primary: "#5E60FF",
+  white: "#FFFFFF",
+  black: "#000",
+};
+
 export const colors = {
   white,
   black,
@@ -38,4 +47,5 @@ export const colors = {
   secondary,
   red,
   blue,
+  primary,
 };

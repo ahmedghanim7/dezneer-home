@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from "react-native";
 import React from "react";
-import { VariantTypes, colors, typography } from "@/theme";
+import { VariantTypes, newColors, typography } from "@/theme";
 
 interface TypographyProps extends TextProps {
   content: string;
@@ -34,13 +34,17 @@ const Typography = ({
 }: TypographyProps) => {
   const textCustomStyles: StyleProp<TextStyle> = [
     typography[variant],
-    { color: color || colors.white, textAlign: "center" },
+    { color: color || newColors.gray[200], textAlign: "center" },
     textStyles,
   ];
 
   if (touchable) {
     return (
-      <TouchableOpacity onPress={onPress} style={containerStyles}>
+      <TouchableOpacity
+        activeOpacity={0.4}
+        onPress={onPress}
+        style={containerStyles}
+      >
         {/* @ts-ignore */}
         <Text {...rest} onPress={undefined} style={textCustomStyles}>
           {content} {children}
@@ -52,7 +56,8 @@ const Typography = ({
   return (
     //@ts-ignore
     <Text {...rest} style={textCustomStyles}>
-      {content} {children}
+      {content}
+      {children}
     </Text>
   );
 };

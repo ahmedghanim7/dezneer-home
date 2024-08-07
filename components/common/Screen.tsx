@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   SafeAreaView,
   ScrollView,
   StyleProp,
@@ -6,9 +7,9 @@ import {
   ViewStyle,
 } from "react-native";
 import React from "react";
-import { SpacingTypes, colors, spacing } from "@/theme";
+import { SpacingTypes, colors, newColors, spacing } from "@/theme";
 import { StatusBar } from "expo-status-bar";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 interface ScreenProps {
   children: React.ReactNode;
   withStatusBar?: boolean;
@@ -27,11 +28,12 @@ const Screen = ({
   bottom = "none",
   px = "xLarge",
   top = "none",
-  bg = colors.black.DEFAULT,
+  bg = newColors.white,
   scrollable = true,
   containerStyles,
   hideIndicator = false,
 }: ScreenProps) => {
+  const { top: safeAreaTop } = useSafeAreaInsets();
   const customStyles: StyleProp<ViewStyle> = {
     flex: 1,
     height: "100%",
@@ -39,9 +41,11 @@ const Screen = ({
     paddingBottom: spacing[bottom],
     paddingHorizontal: spacing[px],
     // @ts-ignore
-    paddingTop: spacing[top] ? spacing[top] : top,
+    paddingTop: spacing[top] ? spacing[top] : safeAreaTop,
     backgroundColor: bg,
   };
+  console.log(Dimensions.get("screen").width);
+
   if (scrollable) {
     return (
       <SafeAreaView style={styles.container}>

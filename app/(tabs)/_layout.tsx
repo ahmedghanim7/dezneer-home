@@ -1,21 +1,27 @@
 import { StatusBar } from "expo-status-bar";
 import { Tabs } from "expo-router";
 import BottomTabIcon from "@/components/navigation/BottomTabIcon";
-import { icons } from "@/assets";
+import { newColors } from "@/theme";
+import {
+  FeedIcon,
+  ForumIcon,
+  HomeIcon,
+  SubscriptionIcon,
+} from "@/assets/icons";
 
 const TabLayout = () => {
   return (
     <>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: "#FFA001",
-          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarActiveTintColor: newColors.primary,
+          tabBarInactiveTintColor: newColors.gray[100],
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: "#161622",
-            borderTopWidth: 1,
-            borderTopColor: "#232533",
-            height: 84,
+            backgroundColor: newColors.white,
+            height: 45,
+            paddingVertical: 2,
+            paddingHorizontal: 20,
           },
         }}
       >
@@ -28,7 +34,7 @@ const TabLayout = () => {
               headerShown: false,
               tabBarIcon: ({ color, focused }) => (
                 <BottomTabIcon
-                  icon={item.icon}
+                  Icon={item.icon}
                   color={color}
                   name={item.title}
                   focused={focused}
@@ -47,23 +53,23 @@ export default TabLayout;
 
 const tabs = [
   {
-    title: "Home",
-    name: "home",
-    icon: icons.home,
+    title: "Timeline",
+    name: "timeline",
+    icon: HomeIcon,
   },
   {
-    title: "Create",
-    name: "create",
-    icon: icons.plus,
+    title: "Blogs",
+    name: "blogs",
+    icon: FeedIcon,
   },
   {
-    title: "Saved",
-    name: "saved-videos",
-    icon: icons.bookmark,
+    title: "Videos",
+    name: "videos",
+    icon: SubscriptionIcon,
   },
   {
-    title: "Profile",
-    name: "profile",
-    icon: icons.profile,
+    title: "Messaging",
+    name: "messaging",
+    icon: ForumIcon,
   },
 ];

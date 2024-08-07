@@ -1,11 +1,16 @@
 const type = {
-  regular: "Poppins-Regular",
-  bold: "Poppins-Bold",
-  extraBold: "Poppins-ExtraBold",
-  thin: "Poppins-Thin",
-  medium: "Poppins-Medium",
-  extraLight: "Poppins-ExtraLight",
-  semiBold: "Poppins-SemiBold",
+  regular: "Segoe-UI-Regular",
+  bold: "Segoe-UI-Bold",
+  italic: "Segoe-UI-Italic",
+  boldItalic: "Segoe-UI-Bold-Italic",
+  light: "Segoe-UI-Light",
+  semiLight: "Segoe-UI-Semi-Light",
+  black: "Segoe-UI-Black",
+  lightItalic: "Segoe-UI-Light-Italic",
+  semiLightItalic: "Segoe-UI-Semi-Light-Italic",
+  semiBoldItalic: "Segoe-UI-Semi-Bold-Italic",
+  semiBold: "Segoe-UI-Semi-Bold",
+  blackItalic: "Segoe-UI-Black-Italic",
 };
 
 const size = {
@@ -14,9 +19,11 @@ const size = {
   xLarge: 22,
   large: 18,
   medium: 16,
-  small: 14,
+  small: 15,
   xSmall: 12,
-  xxSmall: 8,
+  xxSmall: 11,
+  xxxSmall: 10,
+  xxxxSmall: 8,
 };
 
 const lineHeight = {
@@ -25,55 +32,19 @@ const lineHeight = {
   medium: 22,
   small: 20,
   xSmall: 16,
+  xxSmall: 15,
+  xxxSmall: 13,
+  xxxxSmall: 11,
 };
 
 export const typography = {
-  xxxLargeBold: {
-    fontFamily: type.bold,
-    fontSize: size.xxxLarge,
-    lineHeight: lineHeight.xLarge,
-  },
-  xLargeBold: {
-    fontFamily: type.bold,
-    fontSize: size.xLarge,
-    lineHeight: lineHeight.xLarge,
-  },
-
-  xLargeMedium: {
-    fontFamily: type.medium,
-    fontSize: size.xLarge,
-    lineHeight: lineHeight.xLarge,
-  },
-
-  mediumBold: {
-    fontFamily: type.bold,
-    fontSize: size.medium,
-    lineHeight: lineHeight.medium,
-  },
-  mediumSemiBold: {
-    fontFamily: type.semiBold,
-    fontSize: size.medium,
-    lineHeight: lineHeight.medium,
-  },
-  mediumRegular: {
+  xSmallRegular: {
     fontFamily: type.regular,
-    fontSize: size.medium,
-    lineHeight: lineHeight.medium,
+    fontSize: size.xSmall,
+    lineHeight: lineHeight.xSmall,
   },
-
   smallRegular: {
     fontFamily: type.regular,
-    fontSize: size.small,
-    lineHeight: lineHeight.small,
-  },
-
-  smallThin: {
-    fontFamily: type.thin,
-    fontSize: size.small,
-    lineHeight: lineHeight.small,
-  },
-  smallBold: {
-    fontFamily: type.bold,
     fontSize: size.small,
     lineHeight: lineHeight.small,
   },
@@ -82,42 +53,26 @@ export const typography = {
     fontSize: size.small,
     lineHeight: lineHeight.small,
   },
-
-  largeRegular: {
+  xxSmallRegular: {
     fontFamily: type.regular,
-    fontSize: size.large,
-    lineHeight: lineHeight.large,
+    fontSize: size.xxSmall,
+    lineHeight: lineHeight.xxSmall,
   },
-  largeBold: {
-    fontFamily: type.bold,
-    fontSize: size.large,
-    lineHeight: lineHeight.large,
+  xxxSmallRegular: {
+    fontFamily: type.regular,
+    fontSize: size.xxxSmall,
+    lineHeight: lineHeight.xxxSmall,
   },
-  largeSemiBold: {
-    fontFamily: type.semiBold,
-    fontSize: size.large,
-    lineHeight: lineHeight.large,
-  },
-  largeMedium: {
-    fontFamily: type.medium,
-    fontSize: size.large,
-    lineHeight: lineHeight.large,
+  xxxxSmallRegular: {
+    fontFamily: type.regular,
+    fontSize: size.xxxxSmall,
+    lineHeight: lineHeight.xxxxSmall,
   },
 
-  xSmallRegular: {
-    fontFamily: type.regular,
-    fontSize: size.xSmall,
-    lineHeight: lineHeight.xSmall,
-  },
-  xSmallSemiBold: {
+  mediumSmallSemiBold: {
     fontFamily: type.semiBold,
-    fontSize: size.xSmall,
-    lineHeight: lineHeight.xSmall,
-  },
-  xSmallMedium: {
-    fontFamily: type.medium,
-    fontSize: size.xSmall,
-    lineHeight: lineHeight.xSmall,
+    fontSize: size.medium,
+    lineHeight: lineHeight.small,
   },
 };
 

@@ -1,26 +1,34 @@
 import {
   GestureResponderEvent,
-  Image,
-  ImageStyle,
   StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
 import React from "react";
-import { spacing } from "@/theme";
+import { newColors } from "@/theme";
 
 interface IconButtonProps {
-  onPress?: (event: GestureResponderEvent) => void;
-  icon: any;
-  iconStyle?: StyleProp<ImageStyle>;
+  onPress?: ((event: GestureResponderEvent) => void) | undefined;
+  icon?: any;
+  iconStyle?: IconStyle;
   containerStyle?: StyleProp<ViewStyle>;
+  Icon?: any;
+  checkedIconFilled?: any;
+  isChecked?: boolean;
+}
+
+interface IconStyle {
+  width?: number;
+  height?: number;
+  fill?: string;
 }
 const IconButton = ({
-  icon,
   onPress,
-  iconStyle,
   containerStyle,
+  Icon,
+  isChecked,
+  iconStyle,
 }: IconButtonProps) => {
   return (
     <TouchableOpacity
@@ -28,10 +36,9 @@ const IconButton = ({
       style={[styles.container, containerStyle]}
       onPress={onPress}
     >
-      <Image
-        source={icon}
-        style={[{ width: 10, height: 10 }, iconStyle]}
-        resizeMode="contain"
+      <Icon
+        {...iconStyle}
+        fill={isChecked ? newColors.primary : newColors.gray[200]}
       />
     </TouchableOpacity>
   );
@@ -44,6 +51,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: spacing.smaller,
+    width: 24,
+    height: 24,
   },
 });

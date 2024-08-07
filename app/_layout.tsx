@@ -1,24 +1,26 @@
-import { store } from "@/store";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import { Provider } from "react-redux";
-import Toast from "react-native-toast-message";
+import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded, error] = useFonts({
-    "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
-    "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
-    "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
-    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
-    "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
+    "Segoe-UI-Regular": require("../assets/fonts/segoeui.ttf"),
+    "Segoe-UI-Bold": require("../assets/fonts/segoeuib.ttf"),
+    "Segoe-UI-Italic": require("../assets/fonts/segoeuii.ttf"),
+    "Segoe-UI-Light": require("../assets/fonts/segoeuil.ttf"),
+    "Segoe-UI-Semi-Light": require("../assets/fonts/segoeuisl.ttf"),
+    "Segoe-UI-Bold-Italic": require("../assets/fonts/segoeuiz.ttf"),
+    "Segoe-UI-Black": require("../assets/fonts/seguibl.ttf"),
+    "Segoe-UI-Black-Italic": require("../assets/fonts/seguibli.ttf"),
+    "Segoe-UI-Light-Italic": require("../assets/fonts/seguili.ttf"),
+    "Segoe-UI-Semi-Bold": require("../assets/fonts/seguisb.ttf"),
+    "Segoe-UI-Semi-Bold-Italic": require("../assets/fonts/seguisbi.ttf"),
+    "Segoe-UI-Semi-Light-Italic": require("../assets/fonts/seguisli.ttf"),
   });
 
   useEffect(() => {
@@ -38,16 +40,13 @@ export default function RootLayout() {
   }
 
   return (
-    <Provider store={store}>
+    <GestureHandlerRootView>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="welcome" options={{ headerShown: false }} />
-        <Stack.Screen name="search" options={{ headerShown: false }} />
-        <Stack.Screen name="media-viewer" options={{ headerShown: false }} />
       </Stack>
-      <Toast />
-    </Provider>
+    </GestureHandlerRootView>
   );
 }
+
+

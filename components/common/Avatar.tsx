@@ -1,38 +1,23 @@
-import {
-  DimensionValue,
-  Image,
-  ImageResizeMode,
-  ImageStyle,
-  StyleProp,
-} from "react-native";
+import { Image, ImageResizeMode, ImageStyle, StyleProp } from "react-native";
 import React from "react";
-import { colors, spacing } from "@/theme";
 
 interface AvatarProps {
   source: any;
-  width?: DimensionValue;
-  height?: DimensionValue;
+  width?: number;
+  height?: number;
   borderRadius?: number;
   borderWidth?: number;
   borderColor?: string;
   resizeMode?: ImageResizeMode | undefined;
 }
 
-const Avatar = ({
-  source,
-  height,
-  width,
-  borderColor,
-  borderRadius,
-  borderWidth,
-  resizeMode,
-}: AvatarProps) => {
+const Avatar = ({ source, height, width, resizeMode }: AvatarProps) => {
+  const avatarWidth = width || 46;
+  const avatarHeight = height || 46;
   const imageStyles: StyleProp<ImageStyle> = {
-    width: width || 46,
-    height: height || 46,
-    borderRadius: borderRadius || spacing.small,
-    borderColor: borderColor || colors.secondary.DEFAULT,
-    borderWidth: borderWidth || 3,
+    width: avatarWidth,
+    height: avatarHeight,
+    borderRadius: avatarWidth / 2,
   };
 
   return (

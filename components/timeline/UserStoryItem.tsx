@@ -19,10 +19,10 @@ const StoryItem: React.FC<StoryItemProps> = ({
   storyCount,
   isCurrentUser,
 }) => {
-  const size = 60; // Size of the outer circle
+  const size = 60;
   const radius = (size - 4) / 2;
   const circumference = radius * 2 * Math.PI;
-  const gapLength = 4; // Length of the gap between segments
+  const gapLength = 4;
   const dashLength = (circumference - gapLength * storyCount) / storyCount;
 
   const renderCircles = useMemo(() => {

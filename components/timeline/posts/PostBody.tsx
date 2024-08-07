@@ -40,7 +40,9 @@ const PostBody = ({ postImages, postText = "" }: PostBodyProps) => {
   });
 
   return (
-    <View style={{ marginVertical: spacing.tiny + 1, rowGap: spacing.tiny + 1 }}>
+    <View
+      style={{ marginVertical: spacing.tiny + 1, rowGap: spacing.tiny + 1 }}
+    >
       <Typography
         content={postText}
         variant="smallRegular"
@@ -65,7 +67,7 @@ const PostBody = ({ postImages, postText = "" }: PostBodyProps) => {
               // <SliderItem item={item} index={index} scrollX={scrollX} />
             )}
             keyExtractor={(item) => item}
-            // onViewableItemsChanged={viewableItemsChanged}
+            onViewableItemsChanged={viewableItemsChanged}
             onScroll={onScrollHandler}
           />
         </View>

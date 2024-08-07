@@ -32,9 +32,25 @@ export default HomeScreen;
 const posts = [
   {
     id: 1,
-    user: { fullname: "John Wike", username: "john.wike", id: 1 },
+    user: { fullname: "Ahmed Ghanim", username: "ahmed.ghanim", id: 1 },
     content: "New photo for Palestine ♥",
     postImages: [images.image4, images.image1, images.image2, images.image3],
+  },
+
+  {
+    id: 6,
+    user: { fullname: "Rami Msert", username: "rami.msr", id: 1 },
+    content: "New Car !",
+  },
+  {
+    id: 3,
+    isTodoShown: true,
+  },
+  {
+    id: 5,
+    user: { fullname: "Rami Msert", username: "rami.msr", id: 1 },
+    content: "New Car !",
+    postImages: [images.image1, images.image2],
   },
 
   {
@@ -45,7 +61,7 @@ const posts = [
     postImages: [images.image],
   },
   {
-    id: 3,
+    id: 11,
     isTodoShown: true,
   },
   {

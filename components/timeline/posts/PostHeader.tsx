@@ -2,11 +2,16 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Avatar, IconButton, Typography } from "@/components/common";
 import { MenuIcon, VerifiedIcon } from "@/assets/icons";
-import { newColors } from "@/theme";
+import { newColors, spacing } from "@/theme";
 
 const PostHeader = ({ user }: { user: any }) => {
   return (
-    <View style={[styles.container]}>
+    <View
+      style={[
+        styles.container,
+        { marginHorizontal: spacing.small + 2, marginTop: 10 },
+      ]}
+    >
       <View style={[styles.container, { columnGap: 8 }]}>
         <Avatar
           width={35}

@@ -19,17 +19,13 @@ const BottomTabIcon = ({ color, focused, name, Icon }: BottomTabIconProps) => {
           focused ? { backgroundColor: "#5E60FF1A" } : {},
         ]}
       >
-        <Icon
-          // width={20}
-          // height={20}
-          fill={focused ? newColors.primary : newColors.gray[100]}
-        />
+        <Icon fill={focused ? newColors.primary : newColors.gray[100]} />
       </View>
       <Typography
         content={name}
         variant={"xxxxSmallRegular"}
         color={color}
-        textStyles={{ textTransform: "uppercase", letterSpacing: 1.6 }}
+        textStyles={styles.label}
       />
     </View>
   );
@@ -50,5 +46,11 @@ const styles = StyleSheet.create({
     height: 24,
     alignItems: "center",
     justifyContent: "center",
+  },
+  label: {
+    textTransform: "uppercase",
+    letterSpacing: 1.3,
+    lineHeight: 11,
+    fontSize: 8,
   },
 });

@@ -21,7 +21,6 @@ export default Post;
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing.small + 2,
     borderRadius: spacing.medium,
     marginBottom: spacing.smaller,
     backgroundColor: newColors.white,

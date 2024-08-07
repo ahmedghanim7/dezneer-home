@@ -47,7 +47,6 @@ const PostActionItem = ({
       <IconButton
         iconStyle={{ fill: "#666666" }}
         Icon={Icon}
-        // containerStyle={{ width: 24, height: 24 }}
         isChecked={isPostLiked}
         onPress={likePostToggle || undefined}
       />
@@ -70,6 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: spacing.smaller,
     paddingTop: spacing.small,
-    paddingBottom: 1,
+    paddingBottom: spacing.small + 2,
+    marginHorizontal: spacing.small,
   },
 });

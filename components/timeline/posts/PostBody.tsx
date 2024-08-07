@@ -2,75 +2,74 @@ import {
   Dimensions,
   FlatList,
   Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Typography } from "@/components/common";
 import { newColors, spacing } from "@/theme";
-import Animated, {
-  Extrapolation,
-  SharedValue,
-  interpolate,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
 
 interface PostBodyProps {
   postText?: string;
   postImages?: string[];
 }
+const imageWidth = Dimensions.get("window").width - 16 - 30;
+const screenWidth = Dimensions.get("window").width;
 
-const PostBody = ({ postImages, postText = "" }: PostBodyProps) => {
-  const scrollX = useSharedValue(0);
+const PostBody = ({ postImages = [], postText = "" }: PostBodyProps) => {
   const numberOfPostImages = postImages?.length || 0;
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
 
-  // @ts-ignore
-  const viewableItemsChanged = ({ viewableItems }) => {
-    if (viewableItems.length > 0) setActiveImageIndex(viewableItems[0].index);
+  const imagesIndexes = useMemo(() => {
+    const result = [];
+    for (let i = 0; i < numberOfPostImages; i++) {
+      const min = i === 0 ? 0 : imageWidth * i - imageWidth / 2;
+      const max =
+        i === 0 ? imageWidth / 2 : imageWidth * (i + 1) - imageWidth / 2;
+      const into = i === 0 ? 0 : imageWidth * i - 20;
+      result.push({ min, max, into });
+    }
+    return result;
+  }, [postImages]);
+
+  const onScrollHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const contentOffset = event.nativeEvent.contentOffset.x;
+    const target = imagesIndexes.find((item) => {
+      if (contentOffset <= item.max && contentOffset >= item.min) return item;
+    });
+    // @ts-ignore
+    flatListRef.current?.scrollToOffset({ offset: target?.into });
   };
 
-  const onScrollHandler = useAnimatedScrollHandler({
-    onScroll: (e) => {
-      scrollX.value = e.contentOffset.x;
-    },
-  });
-
   return (
-    <View
-      style={{ marginVertical: spacing.tiny + 1, rowGap: spacing.tiny + 1 }}
-    >
+    <View style={styles.container}>
       <Typography
         content={postText}
         variant="smallRegular"
         color={newColors.black}
-        textStyles={{ textAlign: "left" }}
+        textStyles={{ textAlign: "left", paddingHorizontal: 4 }}
       />
       {!!numberOfPostImages && (
-        <View style={{ position: "relative" }}>
-          {numberOfPostImages > 1 && (
-            <Text style={styles.activeImageStyle}>
-              {activeImageIndex + 1}/{numberOfPostImages}
-            </Text>
+        <FlatList
+          ref={flatListRef}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          data={postImages}
+          renderItem={({ item, index }) => (
+            <SliderItem
+              item={item}
+              index={index}
+              totalImagesCount={numberOfPostImages}
+            />
           )}
-          <Animated.FlatList
-            // style={{ minHeight: 345, marginTop: spacing.tiny }}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            pagingEnabled
-            data={postImages}
-            renderItem={({ item, index }) => (
-              <Image style={[styles.postImage]} source={item} />
-              // <SliderItem item={item} index={index} scrollX={scrollX} />
-            )}
-            keyExtractor={(item) => item}
-            onViewableItemsChanged={viewableItemsChanged}
-            onScroll={onScrollHandler}
-          />
-        </View>
+          keyExtractor={(_, index) => index.toString()}
+          onScrollEndDrag={onScrollHandler}
+          scrollEventThrottle={16}
+          decelerationRate="fast"
+        />
       )}
     </View>
   );
@@ -79,74 +78,61 @@ const PostBody = ({ postImages, postText = "" }: PostBodyProps) => {
 interface SliderItemProps {
   item: any;
   index: number;
-  scrollX: SharedValue<number>;
+  totalImagesCount: number;
 }
 
-const SliderItem = ({ item, index, scrollX }: SliderItemProps) => {
-  const screenWidth = Dimensions.get("screen").width;
-
-  // const rnAnimatedStyle = useAnimatedStyle(() => {
-  //   return {
-  //     transform: [
-  //       {
-  //         translateX: interpolate(
-  //           scrollX.value,
-  //           [
-  //             (index - 1) * screenWidth,
-  //             index * screenWidth,
-  //             (index + 1) * screenWidth,
-  //           ],
-  //           [screenWidth * -0.25, 0, screenWidth * 0.25],
-  //           Extrapolation.CLAMP
-  //         ),
-  //       },
-  //     ],
-  //   };
-  // });
+const SliderItem = ({ item, index, totalImagesCount }: SliderItemProps) => {
+  const isSingleImage = totalImagesCount === 1;
   return (
-    <Image style={[styles.postImage]} source={item} />
-    // <Animated.View style={[styles.itemContainer, rnAnimatedStyle]}>
-    //   <View
-    //     style={{
-    //       flex: 1,
-    //       backgroundColor: "yellow",
-    //     }}
-    //   >
-
-    //   </View>
-    // </Animated.View>
+    <View
+      style={[
+        styles.itemContainer,
+        {
+          width: isSingleImage ? screenWidth - 10 : imageWidth,
+          height: isSingleImage ? 350 : imageWidth,
+        },
+      ]}
+    >
+      <Image source={item} style={[styles.image, {}]} resizeMode="cover" />
+      {!isSingleImage && (
+        <Text style={styles.activeImageStyle}>
+          {index + 1}/{totalImagesCount}
+        </Text>
+      )}
+    </View>
   );
 };
 
-export default PostBody;
-
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: spacing.tiny + 1,
+    rowGap: spacing.tiny + 1,
+    paddingHorizontal: 4,
+  },
   itemContainer: {
-    width: Dimensions.get("screen").width,
     alignItems: "center",
     justifyContent: "center",
-    height: 350,
-    backgroundColor: "pink",
-    borderWidth: 1,
-    borderColor: "black",
+    paddingHorizontal: 4,
+    borderRadius: 12,
+    position: "relative",
   },
-  postImage: {
-    height: 350,
-    width: Dimensions.get("screen").width - 20 - 2,
-    borderRadius: spacing.medium - 2,
-    marginHorizontal: 1,
+  image: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 12,
   },
   activeImageStyle: {
     position: "absolute",
-    top: 15,
-    right: 15,
+    top: 10,
+    right: 10,
     zIndex: 10,
     backgroundColor: "#333333ba",
-    borderRadius: 10,
+    borderRadius: 14,
     textAlign: "center",
     paddingHorizontal: 8,
     paddingVertical: 3,
     color: newColors.white,
-    // textDecorationLine:""
+    fontSize: 12,
   },
 });
+export default PostBody;

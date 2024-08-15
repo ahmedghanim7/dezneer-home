@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from "react-native";
 import UserStoryComponent from "./UserStoryItem";
 import { spacing } from "@/theme";
 
-const HomeScreen: React.FC = () => {
+const UserStories: React.FC = () => {
   return (
     <FlatList
       style={styles.container}
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default UserStories;
 
 const stories = [
   {

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Anora",
-    "slug": "anora",
+    "name": "Dzneer",
+    "slug": "dzneer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,15 +13,13 @@
       "backgroundColor": "#000"
     },
     "ios": {
-      "supportsTablet": true,
-      "package": "com.ahmedghanim.anora"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000"
-      },
-      "package": "com.ahmedghanim.anora"
+      }
     },
     "web": {
       "bundler": "metro",

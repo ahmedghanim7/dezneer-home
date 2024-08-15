@@ -12,7 +12,7 @@ interface BottomTabIconProps {
 
 const BottomTabIcon = ({ color, focused, name, Icon }: BottomTabIconProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <View
         style={[
           styles.iconContainer,

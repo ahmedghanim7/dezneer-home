@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from "react-native";
 import React from "react";
-import { SpacingTypes, colors, newColors, spacing } from "@/theme";
+import { SpacingTypes, newColors, spacing } from "@/theme";
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 interface ScreenProps {
@@ -44,7 +44,6 @@ const Screen = ({
     paddingTop: spacing[top] ? spacing[top] : safeAreaTop,
     backgroundColor: bg,
   };
-  console.log(Dimensions.get("screen").width);
 
   if (scrollable) {
     return (

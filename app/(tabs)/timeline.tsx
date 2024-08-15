@@ -1,19 +1,16 @@
 import { images } from "@/assets";
 import { Screen } from "@/components/common";
-import TimelineHeader from "@/components/timeline/TimelineHeader";
-import UserStories from "@/components/timeline/UserStories";
-import Post from "@/components/timeline/posts/Post";
-import { FlatList, StyleSheet, View } from "react-native";
-// import { BlurView } from "@react-native-community/blur";
+import { Header, Post, UserStories } from "@/components/timline";
+import { FlatList, View } from "react-native";
 
-const HomeScreen = () => {
+const TimeLineScreen = () => {
   return (
-    <Screen scrollable={false} px="none" bg="#F0F2F5">
+    <Screen scrollable={false} px="none" bg="#F0F2F5" withStatusBar>
       <FlatList
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View>
-            <TimelineHeader />
+            <Header />
             <UserStories />
           </View>
         }
@@ -27,7 +24,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default TimeLineScreen;
 
 const posts = [
   {

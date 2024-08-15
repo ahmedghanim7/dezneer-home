@@ -2,8 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Post from "./Post";
 import { spacing } from "@/theme";
-import TimelineHeader from "../TimelineHeader";
-import UserStories from "@/components/timeline/UserStories";
+import TimelineHeader from "../header/Header";
 
 const PostsList = () => {
   return (

@@ -3,8 +3,8 @@ import { newColors, spacing } from "@/theme";
 import React, { useMemo } from "react";
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Svg, { Circle } from "react-native-svg";
-import { IconButton, Typography } from "../common";
 import { PlusIcon } from "@/assets/icons";
+import { IconButton, Typography } from "@/components/common";
 
 interface StoryItemProps {
   imageUrl: string;

@@ -1,4 +1,4 @@
-import { colors } from "@/theme";
+import { newColors } from "@/theme";
 import {
   View,
   ActivityIndicator,
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
-    backgroundColor: colors.black["100"],
+    backgroundColor: newColors.black,
   },
 });

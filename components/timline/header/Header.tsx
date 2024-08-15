@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { IconButton } from "../common";
 import { newColors, spacing } from "@/theme";
 import {
   LogoIcon,
@@ -8,8 +7,9 @@ import {
   SearchIcon,
   UserIcon,
 } from "@/assets/icons";
+import { IconButton } from "@/components/common";
 
-const TimelineHeader = () => {
+const Header = () => {
   return (
     <View style={styles.container}>
       <LogoIcon />
@@ -34,7 +34,7 @@ const TimelineHeader = () => {
   );
 };
 
-export default TimelineHeader;
+export default Header;
 
 /* 34 */
 
